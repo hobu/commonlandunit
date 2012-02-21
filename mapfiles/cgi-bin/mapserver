@@ -1,0 +1,4 @@
+#!/bin/sh
+MS_MAPFILE=/Data/www/commonlandunit.com/mapserver/commonlandunit.map
+export MS_MAPFILE
+/Data/www/commonlandunit/cgi-bin/mapserv
