@@ -91,4 +91,6 @@ WEB
 
 END
 
+INCLUDE "states.map"
+
 END #MAP
