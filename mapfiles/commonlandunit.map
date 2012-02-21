@@ -3,7 +3,7 @@ MAP
 NAME 'commonlandunit'
 STATUS ON
 
-MAXSIZE 2048
+#MAXSIZE 2048
 PROJECTION
 	"init=epsg:3857"
 END
