@@ -1,0 +1,23 @@
+vera                            Vera.ttf
+vera-bold                       VeraBd.ttf
+vera-italic                     VeraIt.ttf
+vera-bold-italic                VeraBI.ttf
+#these names are retained for backward-compatibility only
+fritqat                         Vera.ttf
+fritqat-bold                    VeraBd.ttf
+fritqat-italic                  VeraIt.ttf
+fritqat-bold-italic             VeraBI.ttf
+arial                           arial.ttf
+arialbd                         arialbd.ttf
+verdana                         VERDANA.ttf
+gothic                          GOTHIC.ttf
+frabk                           frabk.ttf
+impact                          impact.ttf
+webdings                        WEBDINGS.TTF
+profont				profont.ttf
+silkscreen			slkscre.ttf
+osb 				OldSansBlack.ttf
+consolas        Consolas.ttf
+consolas-bold   ConsolasBd.ttf
+consolas-bold-italic    ConsolasBI.ttf
+consolas-italic ConsolasIt.ttf
