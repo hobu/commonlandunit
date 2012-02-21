@@ -5,7 +5,7 @@ LAYER
         "init=epsg:3857"
     END
 
-    CONNECTION "dbname=clu user=postgres hostname=localhost port=5433"
+    CONNECTION "dbname=clu user=postgres host=localhost port=5433"
     CONNECTIONTYPE POSTGIS
 
     DATA "geometry from (select geometry as geometry, id as oid, name as name from states) as foo USING UNIQUE oid USING SRID=3857"

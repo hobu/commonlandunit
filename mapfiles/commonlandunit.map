@@ -12,7 +12,7 @@ END
 # select st_extent(geometry) from states;
 EXTENT -11584239 4299198 -9438495 6338173 
 
-EXTENT -10275449 5139555.5 -10222990 5205389
+#EXTENT -10275449 5139555.5 -10222990 5205389
 
 UNITS meters
 CONFIG "MS_ERRORFILE" "/Data/www/logs/www.commonlandunit.com-mapserver_log"
