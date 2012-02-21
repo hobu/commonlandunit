@@ -75,7 +75,7 @@ WEB
     TEMPLATE 'printable.html'
     HEADER "query_header.html"
     FOOTER "query_footer.html"
-    IMAGEPATH "/tmp"
+    IMAGEPATH "/tmp/"
     IMAGEURL "/tmp/"
 
     METADATA
