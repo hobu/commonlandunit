@@ -1,0 +1,94 @@
+MAP
+
+NAME 'commonlandunit'
+STATUS ON
+
+MAXSIZE 2048
+PROJECTION
+	"init=epsg:3857"
+END
+ 
+
+# select st_extent(geometry) from states;
+EXTENT -11584239 4299198 -9438495 6338173 
+
+EXTENT -10275449 5139555.5 -10222990 5205389
+
+UNITS meters
+CONFIG "MS_ERRORFILE" "/Data/www/logs/www.commonlandunit.com-mapserver_log"
+SHAPEPATH "/Data/www/commonlandunit.com/mapserver/data"
+SYMBOLSET "/Data/www/commonlandunit.com/mapserver/symbols/symbols.sym"
+FONTSET "/Data/www/commonlandunit.com/mapserver/symbols/fonts.txt"
+
+CONFIG "PROJ_LIB" "/usr/local/share/proj"
+#CONFIG "MS_ERRORFILE" "stderr"
+
+DEBUG OFF
+
+DEFRESOLUTION 72
+RESOLUTION 72
+
+OUTPUTFORMAT
+  NAME aggpng24
+  DRIVER AGG/PNG
+  MIMETYPE "image/png"
+  IMAGEMODE RGBA
+  EXTENSION "png"
+#  FORMATOPTION "INTERLACE=OFF"
+#  TRANSPARENT ON
+END
+
+
+IMAGETYPE png
+
+LEGEND
+    LABEL
+        FONT "consolas-bold"
+        ALIGN RIGHT
+        TYPE TRUETYPE
+        SIZE 10
+        COLOR 0 0 0
+        ANTIALIAS TRUE
+    END
+END
+
+SCALEBAR
+    STATUS ON
+    UNITS FEET
+    COLOR 0 0 0
+    SIZE 384 12
+    INTERVALS 3
+    STYLE 1
+    LABEL
+        FONT "consolas-bold"
+        ALIGN RIGHT
+        TYPE TRUETYPE
+        SIZE 10
+        COLOR 0 0 0
+        ANTIALIAS TRUE
+    END    
+END
+
+#Start of web interface definition
+#
+WEB
+    TEMPLATE 'printable.html'
+    HEADER "query_header.html"
+    FOOTER "query_footer.html"
+    IMAGEPATH "/home/www/tmp/"
+    IMAGEURL "/tmp/"
+
+    METADATA
+        WMS_ONLINERESOURCE 'http://commonlandunit.com/cgi-bin/mapserver'
+        WMS_SRS 'EPSG:3857'
+        WMS_ACCESSCONSTRAINTS 'None'
+        WMS_TITLE 'commonlandunit.com'
+        WMS_FEATURE_INFO_MIME_TYPE 'text/plain'
+        WMS_ABSTRACT 'USDA Command Land Unit'
+		OWS_ENABLE_REQUEST "*"
+#        "labelcache_map_edge_buffer" "-20"
+    END 
+
+END
+
+END #MAP

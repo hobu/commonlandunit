@@ -1,0 +1,93 @@
+LAYER 
+    NAME "states"
+
+    PROJECTION
+        "init=epsg:3857"
+    END
+
+    CONNECTION "dbname=hertz user=postgres"
+    CONNECTIONTYPE POSTGIS
+
+    DATA "geometry from (select geometry as geometry, id as oid, name as name from states) as foo USING UNIQUE oid USING SRID=3857"
+
+    TYPE POLYGON
+    STATUS ON
+
+    CLASSGROUP "Black"
+    LABELITEM "name"
+
+    CLASS
+    GROUP "Orange"
+    STYLE
+        OUTLINECOLOR 252 95 42
+        ANTIALIAS TRUE
+        SYMBOL 0
+        WIDTH 2
+    END
+    END
+
+    VALIDATION
+        "filter" ".*"
+    END
+
+    CLASS
+    GROUP "Black"
+    STYLE
+        OUTLINECOLOR 0 0 0
+        ANTIALIAS TRUE
+        SYMBOL 0
+        WIDTH 2
+    END
+    END
+
+    CLASS
+    GROUP "BlackLabeled"
+        LABEL
+            FONT "consolas-bold"
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            BUFFER 10
+            SIZE 20
+            POSITION AUTO
+            TYPE TRUETYPE
+            ANTIALIAS TRUE
+#            FORCE TRUE
+            PARTIALS FALSE
+            MINDISTANCE 150
+        END
+    STYLE
+        OUTLINECOLOR 0 0 0
+        ANTIALIAS TRUE
+        SYMBOL 0
+        WIDTH 2
+    END
+    END
+
+        CLASS
+        GROUP "WhiteLabeled"
+            LABEL
+                FONT "consolas-bold"
+                COLOR 0 0 0
+                OUTLINECOLOR 230 248 145 
+                OUTLINEWIDTH 3
+                BUFFER 10
+                SIZE 20
+                POSITION AUTO
+                TYPE TRUETYPE
+                ANTIALIAS TRUE
+    #            FORCE TRUE
+                PARTIALS FALSE
+                MINDISTANCE 150
+            END
+        STYLE
+            OUTLINECOLOR 0 0 0
+            ANTIALIAS TRUE
+            SYMBOL 0
+            WIDTH 4
+        END
+        END
+
+#    TRANSPARENCY 30
+	TEMPLATE "dummy.html"
+
+END
