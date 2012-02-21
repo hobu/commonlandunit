@@ -92,5 +92,6 @@ WEB
 END
 
 INCLUDE "states.map"
+INCLUDE "counties.map"
 
 END #MAP
