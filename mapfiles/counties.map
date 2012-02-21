@@ -1,7 +1,7 @@
 # http://commonlandunit.com/cgi-bin/mapserver?request=GetMap&version=1.1.1&width=1024&height=1024&layers=states&srs=EPSG:3857&bbox=-11584239,4299198,-9438495,6338173&styles=&format=image/png
 
 LAYER 
-    NAME "states"
+    NAME "counties"
 
     PROJECTION
         "init=epsg:3857"
@@ -9,7 +9,7 @@ LAYER
 
     INCLUDE "connection.map"
 
-    DATA "geometry from (select geometry as geometry, id as oid, name as name from states) as foo USING UNIQUE oid USING SRID=3857"
+    DATA "geometry from (select geometry as geometry, id as oid, name as name from counties) as foo USING UNIQUE oid USING SRID=3857"
 
     TYPE POLYGON
     STATUS ON
