@@ -2,7 +2,7 @@ LAYER
     NAME "clu"
 
     PROJECTION
-        "init=epsg:3587"
+        "init=epsg:3857"
     END
 
     INCLUDE "connection.map"
