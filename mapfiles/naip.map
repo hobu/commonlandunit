@@ -1,0 +1,23 @@
+LAYER
+
+    PROJECTION
+        "init=epsg:3857"
+    END
+
+    NAME "ortho"
+    TYPE RASTER
+    CONNECTIONTYPE WMS
+    STATUS ON
+    DEBUG OFF
+    MAXSCALEDENOM 100000
+
+    CONNECTION "http://wms.onterrasystems.com/WMSService.svc/aa607976c98f464ead9fc44d4bf93b7c/WMSLatLon?version=1.1.1&layers=OnTerraWMS&styles=Aerial&format=image/jpeg&"
+    METADATA
+        "wms_srs" "EPSG:3857"
+        "wms_title" "Aerial"
+        "wms_styles" "Aerial"
+        "wms_format" "image/jpeg"
+        "wms_layers" "OnTerraWMS"
+    END    
+    
+END

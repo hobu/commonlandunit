@@ -93,5 +93,7 @@ END
 
 INCLUDE "states.map"
 INCLUDE "counties.map"
+INCLUDE "clu.map"
+INCLUDE "naip.map"
 
 END #MAP

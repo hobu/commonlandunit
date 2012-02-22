@@ -1,0 +1,70 @@
+LAYER 
+    NAME "clu"
+
+    PROJECTION
+        "init=epsg:3587"
+    END
+
+    INCLUDE "connection.map"
+    
+#    DATA "geometry from (select geometry as geometry, id as oid from clu where clu.pohaku is not NULL) as foo USING UNIQUE oid USING SRID=900913"
+    DATA "geometry from (select geometry as geometry, id as oid from clu ) as foo USING UNIQUE oid USING SRID=3857"
+   # FILTER "clucls = 2 or clucls = 10 and pohaku is not NULL"
+
+    STATUS ON
+    TYPE POLYGON
+    
+    METADATA
+        "ows_description" "Common Land Unit"
+        "ows_title" "clu"
+        "ows_srs" "EPSG:3857"
+        "ows_extent" "-10275449 5139555.5 -10222990 5205389"
+    END	 
+    
+    MAXSCALEDENOM 100000
+    CLASSGROUP "Yellow"	
+    CLASS
+        NAME "BlackOL"
+        GROUP "Black"
+    STYLE
+        OUTLINECOLOR 0 0 0
+        ANTIALIAS TRUE
+        SYMBOL 0
+        WIDTH 2
+    END
+    END
+    CLASS
+        NAME "YellowOL"
+        GROUP "Yellow"
+    STYLE
+        OUTLINECOLOR 255 255 178
+        ANTIALIAS TRUE
+        SYMBOL 0
+        WIDTH 2
+    END
+    END
+
+    CLASS
+        NAME "GreyOL"
+        GROUP "Grey"
+    STYLE
+        OUTLINECOLOR 215 215 215
+        ANTIALIAS TRUE
+        SYMBOL 0
+        WIDTH 2
+    END
+    END
+    CLASS
+        NAME "BlueOL"
+        GROUP "Blue"
+    STYLE
+        OUTLINECOLOR 51 102 153
+        ANTIALIAS TRUE
+        SYMBOL 0
+        WIDTH 2
+    END
+    END
+#    TRANSPARENCY 30
+	TEMPLATE "dummy.html"
+
+END

@@ -63,28 +63,28 @@ LAYER
     END
     END
 
-        CLASS
-        GROUP "WhiteLabeled"
-            LABEL
-                FONT "consolas-bold"
-                COLOR 0 0 0
-                OUTLINECOLOR 230 248 145 
-                OUTLINEWIDTH 3
-                BUFFER 10
-                SIZE 20
-                POSITION AUTO
-                TYPE TRUETYPE
-                ANTIALIAS TRUE
-                PARTIALS FALSE
-                MINDISTANCE 150
-            END
-        STYLE
-            OUTLINECOLOR 0 0 0
-            ANTIALIAS TRUE
-            SYMBOL 0
-            WIDTH 4
-        END
-        END
+    CLASS
+    GROUP "WhiteLabeled"
+    LABEL
+        FONT "consolas-bold"
+        COLOR 0 0 0
+        OUTLINECOLOR 230 248 145 
+        OUTLINEWIDTH 3
+        BUFFER 10
+        SIZE 20
+        POSITION AUTO
+        TYPE TRUETYPE
+        ANTIALIAS TRUE
+        PARTIALS FALSE
+        MINDISTANCE 150
+    END
+    STYLE
+        OUTLINECOLOR 0 0 0
+        ANTIALIAS TRUE
+        SYMBOL 0
+        WIDTH 4
+    END
+    END
 
 	TEMPLATE "dummy.html"
 
