@@ -18,7 +18,7 @@ LAYER
         "ows_description" "Common Land Unit"
         "ows_title" "clu"
         "ows_srs" "EPSG:3857"
-        "ows_extent" "-10275449 5139555.5 -10222990 5205389"
+#        "ows_extent" "-10275449 5139555.5 -10222990 5205389"
     END	 
     
     MAXSCALEDENOM 100000
