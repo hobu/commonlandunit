@@ -91,9 +91,10 @@ WEB
 
 END
 
+INCLUDE "naip.map"
+
 INCLUDE "states.map"
 INCLUDE "counties.map"
 INCLUDE "clu.map"
-INCLUDE "naip.map"
 
 END #MAP
