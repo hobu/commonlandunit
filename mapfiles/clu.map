@@ -21,6 +21,7 @@ LAYER
 #        "ows_extent" "-10275449 5139555.5 -10222990 5205389"
     END	 
     
+    DEBUG ON
     MAXSCALEDENOM 100000
     CLASSGROUP "Yellow"	
     CLASS
