@@ -1,154 +1,67 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  
-  
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- see the accompanying mapcache.xml.sample for a fully commented configuration file -->
+
+<mapcache>
+   <cache name="disk" type="disk">
+      <base>/tmp</base>
+      <symlink_blank/>
+   </cache>
+
+   <source name="vmap0" type="wms">
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>default</LAYERS>
+         </params>
+      </getmap>
+      
+      <http>
+         <url>http://localhost/cgi-bin/mapserv?map=/gro1/mapserver-utils/osm-google.map</url>
+      </http>
+   </source>
+   <source name="ms" type="mapserver">
+      <mapfile>/gro1/mapserver-utils/osm-google.map</mapfile>
+   </source>
+   
+   <tileset name="test">
+      <source>vmap0</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>5 5</metatile>
+      <metabuffer>10</metabuffer>
+      <expires>3600</expires>
+   </tileset>
+   <tileset name="ms">
+      <source>ms</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>5 5</metatile>
+      <metabuffer>10</metabuffer>
+      <expires>3600</expires>
+   </tileset>
 
 
-  
+   <default_format>JPEG</default_format>
 
-  <head>
-    <title>
-      /trunk/mapserver/mapcache/mapcache.xml – MapServer
-    </title>
-        <link rel="search" href="/mapserver/search" />
-        <link rel="help" href="/mapserver/wiki/TracGuide" />
-        <link rel="alternate" href="/mapserver/browser/trunk/mapserver/mapcache/mapcache.xml?format=txt" type="text/plain" title="Plain Text" /><link rel="alternate" href="/mapserver/export/13168/trunk/mapserver/mapcache/mapcache.xml" type="text/xml; charset=iso-8859-15" title="Original Format" />
-        <link rel="up" href="/mapserver/browser/trunk/mapserver/mapcache" title="Parent directory" />
-        <link rel="start" href="/mapserver/wiki" />
-        <link rel="stylesheet" href="/mapserver/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/mapserver/chrome/common/css/code.css" type="text/css" /><link rel="stylesheet" href="/mapserver/pygments/trac.css" type="text/css" /><link rel="stylesheet" href="/mapserver/chrome/common/css/browser.css" type="text/css" />
-        <link rel="shortcut icon" href="/mapserver/chrome/common/trac.ico" type="image/x-icon" />
-        <link rel="icon" href="/mapserver/chrome/common/trac.ico" type="image/x-icon" />
-      <link type="application/opensearchdescription+xml" rel="search" href="/mapserver/search/opensearch" title="Search MapServer" />
-    <script type="text/javascript" src="/mapserver/chrome/common/js/jquery.js"></script><script type="text/javascript" src="/mapserver/chrome/common/js/trac.js"></script><script type="text/javascript" src="/mapserver/chrome/common/js/search.js"></script>
-    <!--[if lt IE 7]>
-    <script type="text/javascript" src="/mapserver/chrome/common/js/ie_pre7_hacks.js"></script>
-    <![endif]-->
-    <script type="text/javascript">
-      jQuery(document).ready(function($) {
-        $(".trac-toggledeleted").show().click(function() {
-                  $(this).siblings().find(".trac-deleted").toggle();
-                  return false;
-        }).click();
-        $("#jumploc input").hide();
-        $("#jumploc select").change(function () {
-          this.parentNode.parentNode.submit();
-        });
-      });
-    </script>
-  </head>
-  <body>
-    <div id="banner">
-      <div id="header">
-        <a id="logo" href="http://www.mapserver.org/"><img src="/mapserver/chrome/site/banner.png" alt="MapServer" height="100" width="377" /></a>
-      </div>
-      <form id="search" action="/mapserver/search" method="get">
-        <div>
-          <label for="proj-search">Search:</label>
-          <input type="text" id="proj-search" name="q" size="18" value="" />
-          <input type="submit" value="Search" />
-        </div>
-      </form>
-      <div id="metanav" class="nav">
-    <ul>
-      <li class="first"><a href="/mapserver/login">Login</a></li><li><a href="/mapserver/wiki/TracGuide">Help/Guide</a></li><li><a href="/mapserver/about">About Trac</a></li><li class="last"><a href="/mapserver/prefs">Preferences</a></li>
-    </ul>
-  </div>
-    </div>
-    <div id="mainnav" class="nav">
-    <ul>
-      <li class="first"><a href="/mapserver/wiki">Wiki</a></li><li><a href="/mapserver/timeline">Timeline</a></li><li><a href="/mapserver/roadmap">Roadmap</a></li><li class="active"><a href="/mapserver/browser">Browse Source</a></li><li><a href="/mapserver/report">View Tickets</a></li><li class="last"><a href="/mapserver/search">Search</a></li>
-    </ul>
-  </div>
-    <div id="main">
-      <div id="ctxtnav" class="nav">
-        <h2>Context Navigation</h2>
-          <ul>
-              <li class="first"><a href="/mapserver/changeset/13141/trunk/mapserver/mapcache/mapcache.xml">Last Change</a></li><li><a href="/mapserver/browser/trunk/mapserver/mapcache/mapcache.xml?annotate=blame&amp;rev=13141" title="Annotate each line with the last changed revision (this can be time consuming...)">Annotate</a></li><li class="last"><a href="/mapserver/log/trunk/mapserver/mapcache/mapcache.xml">Revision Log</a></li>
-          </ul>
-        <hr />
-      </div>
-    <div id="content" class="browser">
-      <h1>
-    <a class="pathentry first" title="Go to root directory" href="/mapserver/browser">root</a><span class="pathentry sep">/</span><a class="pathentry" title="View trunk" href="/mapserver/browser/trunk">trunk</a><span class="pathentry sep">/</span><a class="pathentry" title="View mapserver" href="/mapserver/browser/trunk/mapserver">mapserver</a><span class="pathentry sep">/</span><a class="pathentry" title="View mapcache" href="/mapserver/browser/trunk/mapserver/mapcache">mapcache</a><span class="pathentry sep">/</span><a class="pathentry" title="View mapcache.xml" href="/mapserver/browser/trunk/mapserver/mapcache/mapcache.xml">mapcache.xml</a>
-    <br style="clear: both" />
-  </h1>
-      <div id="jumprev">
-        <form action="" method="get">
-          <div>
-            <label for="rev">
-              View revision:</label>
-            <input type="text" id="rev" name="rev" size="6" />
-          </div>
-        </form>
-      </div>
-      <div id="jumploc">
-        <form action="" method="get">
-          <div class="buttons">
-            <label for="preselected">Visit:</label>
-            <select id="preselected" name="preselected">
-              <option selected="selected"></option>
-              <optgroup label="branches">
-                <option value="/mapserver/browser/trunk">trunk</option><option value="/mapserver/browser/branches/branch-4-0">branches/branch-4-0</option><option value="/mapserver/browser/branches/branch-4-2">branches/branch-4-2</option><option value="/mapserver/browser/branches/branch-4-4">branches/branch-4-4</option><option value="/mapserver/browser/branches/branch-4-6">branches/branch-4-6</option><option value="/mapserver/browser/branches/branch-4-8">branches/branch-4-8</option><option value="/mapserver/browser/branches/branch-4-10">branches/branch-4-10</option><option value="/mapserver/browser/branches/branch-5-0">branches/branch-5-0</option><option value="/mapserver/browser/branches/branch-5-2">branches/branch-5-2</option><option value="/mapserver/browser/branches/branch-5-4">branches/branch-5-4</option><option value="/mapserver/browser/branches/branch-5-6">branches/branch-5-6</option><option value="/mapserver/browser/branches/branch-6-0">branches/branch-6-0</option>
-              </optgroup><optgroup label="tags">
-                <option value="/mapserver/browser/tags/rel-3-4?rev=256">tags/rel-3-4</option><option value="/mapserver/browser/tags/rel-3-5-0?rev=6127">tags/rel-3-5-0</option><option value="/mapserver/browser/tags/rel-3-5-old-gd?rev=290">tags/rel-3-5-old-gd</option><option value="/mapserver/browser/tags/rel-3-5-php411?rev=6127">tags/rel-3-5-php411</option><option value="/mapserver/browser/tags/rel-3-6-0?rev=6127">tags/rel-3-6-0</option><option value="/mapserver/browser/tags/rel-3-6-0-beta1?rev=6127">tags/rel-3-6-0-beta1</option><option value="/mapserver/browser/tags/rel-3-6-0-beta2?rev=1214">tags/rel-3-6-0-beta2</option><option value="/mapserver/browser/tags/rel-3-6-1?rev=1338">tags/rel-3-6-1</option><option value="/mapserver/browser/tags/rel-3-6-2?rev=1360">tags/rel-3-6-2</option><option value="/mapserver/browser/tags/rel-3-6-3?rev=1494">tags/rel-3-6-3</option><option value="/mapserver/browser/tags/rel-3-6-4?rev=1739">tags/rel-3-6-4</option><option value="/mapserver/browser/tags/rel-3-6-5?rev=1966">tags/rel-3-6-5</option><option value="/mapserver/browser/tags/rel-3-6-6?rev=2113">tags/rel-3-6-6</option><option value="/mapserver/browser/tags/rel-3-6-7?rev=2592">tags/rel-3-6-7</option><option value="/mapserver/browser/tags/rel-4-0-0?rev=2305">tags/rel-4-0-0</option><option value="/mapserver/browser/tags/rel-4-0-0-beta1?rev=2124">tags/rel-4-0-0-beta1</option><option value="/mapserver/browser/tags/rel-4-0-0-beta2?rev=2220">tags/rel-4-0-0-beta2</option><option value="/mapserver/browser/tags/rel-4-0-1?rev=2480">tags/rel-4-0-1</option><option value="/mapserver/browser/tags/rel-4-0-2?rev=2957">tags/rel-4-0-2</option><option value="/mapserver/browser/tags/rel-4-2-0?rev=3175">tags/rel-4-2-0</option><option value="/mapserver/browser/tags/rel-4-2-0-beta2?rev=3078">tags/rel-4-2-0-beta2</option><option value="/mapserver/browser/tags/rel-4-2-0-beta3?rev=3138">tags/rel-4-2-0-beta3</option><option value="/mapserver/browser/tags/rel-4-2-1?rev=3328">tags/rel-4-2-1</option><option value="/mapserver/browser/tags/rel-4-2-2?rev=3392">tags/rel-4-2-2</option><option value="/mapserver/browser/tags/rel-4-2-3?rev=3497">tags/rel-4-2-3</option><option value="/mapserver/browser/tags/rel-4-2-4?rev=3763">tags/rel-4-2-4</option><option value="/mapserver/browser/tags/rel-4-2-5?rev=3828">tags/rel-4-2-5</option><option value="/mapserver/browser/tags/rel-4-4-0?rev=4224">tags/rel-4-4-0</option><option value="/mapserver/browser/tags/rel-4-4-0-beta1?rev=3862">tags/rel-4-4-0-beta1</option><option value="/mapserver/browser/tags/rel-4-4-0-beta2?rev=3989">tags/rel-4-4-0-beta2</option><option value="/mapserver/browser/tags/rel-4-4-0-beta3?rev=4151">tags/rel-4-4-0-beta3</option><option value="/mapserver/browser/tags/rel-4-4-1?rev=4261">tags/rel-4-4-1</option><option value="/mapserver/browser/tags/rel-4-4-2?rev=4520">tags/rel-4-4-2</option><option value="/mapserver/browser/tags/rel-4-6-0?rev=4759">tags/rel-4-6-0</option><option value="/mapserver/browser/tags/rel-4-6-0-beta1?rev=4576">tags/rel-4-6-0-beta1</option><option value="/mapserver/browser/tags/rel-4-6-0-beta2?rev=4603">tags/rel-4-6-0-beta2</option><option value="/mapserver/browser/tags/rel-4-6-0-beta3?rev=4646">tags/rel-4-6-0-beta3</option><option value="/mapserver/browser/tags/rel-4-6-0-rc1?rev=4674">tags/rel-4-6-0-rc1</option><option value="/mapserver/browser/tags/rel-4-6-1?rev=4802">tags/rel-4-6-1</option><option value="/mapserver/browser/tags/rel-4-6-2?rev=5029">tags/rel-4-6-2</option><option value="/mapserver/browser/tags/rel-4-8-0?rev=5161">tags/rel-4-8-0</option><option value="/mapserver/browser/tags/rel-4-8-0-beta1?rev=4977">tags/rel-4-8-0-beta1</option><option value="/mapserver/browser/tags/rel-4-8-0-beta2?rev=5013">tags/rel-4-8-0-beta2</option><option value="/mapserver/browser/tags/rel-4-8-0-beta3?rev=5076">tags/rel-4-8-0-beta3</option><option value="/mapserver/browser/tags/rel-4-8-0-rc1?rev=5084">tags/rel-4-8-0-rc1</option><option value="/mapserver/browser/tags/rel-4-8-0-rc2?rev=5098">tags/rel-4-8-0-rc2</option><option value="/mapserver/browser/tags/rel-4-8-0-rc3?rev=5135">tags/rel-4-8-0-rc3</option><option value="/mapserver/browser/tags/rel-4-8-1?rev=5168">tags/rel-4-8-1</option><option value="/mapserver/browser/tags/rel-4-8-2?rev=5339">tags/rel-4-8-2</option><option value="/mapserver/browser/tags/rel-4-8-3?rev=5365">tags/rel-4-8-3</option><option value="/mapserver/browser/tags/rel-4-8-4?rev=5563">tags/rel-4-8-4</option><option value="/mapserver/browser/tags/rel-4-10-0?rev=5789">tags/rel-4-10-0</option><option value="/mapserver/browser/tags/rel-4-10-0-beta1?rev=5611">tags/rel-4-10-0-beta1</option><option value="/mapserver/browser/tags/rel-4-10-0-beta2?rev=5710">tags/rel-4-10-0-beta2</option><option value="/mapserver/browser/tags/rel-4-10-0-beta3?rev=5751">tags/rel-4-10-0-beta3</option><option value="/mapserver/browser/tags/rel-4-10-0-rc1?rev=5781">tags/rel-4-10-0-rc1</option><option value="/mapserver/browser/tags/rel-4-10-1?rev=5914">tags/rel-4-10-1</option><option value="/mapserver/browser/tags/rel-4-10-2?rev=6105">tags/rel-4-10-2</option><option value="/mapserver/browser/tags/rel-4-10-3?rev=6684">tags/rel-4-10-3</option><option value="/mapserver/browser/tags/rel-4-10-4?rev=8831">tags/rel-4-10-4</option><option value="/mapserver/browser/tags/rel-4-10-5?rev=9220">tags/rel-4-10-5</option><option value="/mapserver/browser/tags/rel-4-10-6?rev=10336">tags/rel-4-10-6</option><option value="/mapserver/browser/tags/rel-4-10-7?rev=11920">tags/rel-4-10-7</option><option value="/mapserver/browser/tags/rel-5-0-0?rev=6888">tags/rel-5-0-0</option><option value="/mapserver/browser/tags/rel-5-0-0-beta1?rev=6392">tags/rel-5-0-0-beta1</option><option value="/mapserver/browser/tags/rel-5-0-0-beta2?rev=6439">tags/rel-5-0-0-beta2</option><option value="/mapserver/browser/tags/rel-5-0-0-beta3?rev=6514">tags/rel-5-0-0-beta3</option><option value="/mapserver/browser/tags/rel-5-0-0-beta4?rev=6595">tags/rel-5-0-0-beta4</option><option value="/mapserver/browser/tags/rel-5-0-0-beta5?rev=6690">tags/rel-5-0-0-beta5</option><option value="/mapserver/browser/tags/rel-5-0-0-beta6?rev=6738">tags/rel-5-0-0-beta6</option><option value="/mapserver/browser/tags/rel-5-0-0-rc1?rev=6829">tags/rel-5-0-0-rc1</option><option value="/mapserver/browser/tags/rel-5-0-0-rc2?rev=6880">tags/rel-5-0-0-rc2</option><option value="/mapserver/browser/tags/rel-5-0-1?rev=7305">tags/rel-5-0-1</option><option value="/mapserver/browser/tags/rel-5-0-2?rev=7317">tags/rel-5-0-2</option><option value="/mapserver/browser/tags/rel-5-0-3?rev=7649">tags/rel-5-0-3</option><option value="/mapserver/browser/tags/rel-5-2-0?rev=7817">tags/rel-5-2-0</option><option value="/mapserver/browser/tags/rel-5-2-0-beta1?rev=7668">tags/rel-5-2-0-beta1</option><option value="/mapserver/browser/tags/rel-5-2-0-beta2?rev=7704">tags/rel-5-2-0-beta2</option><option value="/mapserver/browser/tags/rel-5-2-0-beta3?rev=7755">tags/rel-5-2-0-beta3</option><option value="/mapserver/browser/tags/rel-5-2-0-beta4?rev=7778">tags/rel-5-2-0-beta4</option><option value="/mapserver/browser/tags/rel-5-2-0-rc1?rev=7809">tags/rel-5-2-0-rc1</option><option value="/mapserver/browser/tags/rel-5-2-1?rev=8157">tags/rel-5-2-1</option><option value="/mapserver/browser/tags/rel-5-2-2?rev=8835">tags/rel-5-2-2</option><option value="/mapserver/browser/tags/rel-5-2-3?rev=9215">tags/rel-5-2-3</option><option value="/mapserver/browser/tags/rel-5-4-0?rev=8944">tags/rel-5-4-0</option><option value="/mapserver/browser/tags/rel-5-4-0-beta1?rev=8590">tags/rel-5-4-0-beta1</option><option value="/mapserver/browser/tags/rel-5-4-0-beta2?rev=8618">tags/rel-5-4-0-beta2</option><option value="/mapserver/browser/tags/rel-5-4-0-beta3?rev=8639">tags/rel-5-4-0-beta3</option><option value="/mapserver/browser/tags/rel-5-4-0-beta4?rev=8864">tags/rel-5-4-0-beta4</option><option value="/mapserver/browser/tags/rel-5-4-0-rc1?rev=8890">tags/rel-5-4-0-rc1</option><option value="/mapserver/browser/tags/rel-5-4-0-rc2?rev=8913">tags/rel-5-4-0-rc2</option><option value="/mapserver/browser/tags/rel-5-4-1?rev=9068">tags/rel-5-4-1</option><option value="/mapserver/browser/tags/rel-5-4-2?rev=9208">tags/rel-5-4-2</option><option value="/mapserver/browser/tags/rel-5-6-0?rev=9630">tags/rel-5-6-0</option><option value="/mapserver/browser/tags/rel-5-6-0-beta1?rev=9339">tags/rel-5-6-0-beta1</option><option value="/mapserver/browser/tags/rel-5-6-0-beta2?rev=9369">tags/rel-5-6-0-beta2</option><option value="/mapserver/browser/tags/rel-5-6-0-beta3?rev=9428">tags/rel-5-6-0-beta3</option><option value="/mapserver/browser/tags/rel-5-6-0-beta4?rev=9485">tags/rel-5-6-0-beta4</option><option value="/mapserver/browser/tags/rel-5-6-0-beta5?rev=9523">tags/rel-5-6-0-beta5</option><option value="/mapserver/browser/tags/rel-5-6-0-rc1?rev=9570">tags/rel-5-6-0-rc1</option><option value="/mapserver/browser/tags/rel-5-6-1?rev=9902">tags/rel-5-6-1</option><option value="/mapserver/browser/tags/rel-5-6-2?rev=9964">tags/rel-5-6-2</option><option value="/mapserver/browser/tags/rel-5-6-3?rev=9995">tags/rel-5-6-3</option><option value="/mapserver/browser/tags/rel-5-6-4?rev=10322">tags/rel-5-6-4</option><option value="/mapserver/browser/tags/rel-5-6-5?rev=10357">tags/rel-5-6-5</option><option value="/mapserver/browser/tags/rel-5-6-6?rev=10877">tags/rel-5-6-6</option><option value="/mapserver/browser/tags/rel-5-6-7?rev=11918">tags/rel-5-6-7</option><option value="/mapserver/browser/tags/rel-5-6-8?rev=13097">tags/rel-5-6-8</option><option value="/mapserver/browser/tags/rel-6-0-0?rev=11683">tags/rel-6-0-0</option><option value="/mapserver/browser/tags/rel-6-0-0-beta1?rev=11136">tags/rel-6-0-0-beta1</option><option value="/mapserver/browser/tags/rel-6-0-0-beta2?rev=11268">tags/rel-6-0-0-beta2</option><option value="/mapserver/browser/tags/rel-6-0-0-beta3?rev=11320">tags/rel-6-0-0-beta3</option><option value="/mapserver/browser/tags/rel-6-0-0-beta4?rev=11410">tags/rel-6-0-0-beta4</option><option value="/mapserver/browser/tags/rel-6-0-0-beta5?rev=11488">tags/rel-6-0-0-beta5</option><option value="/mapserver/browser/tags/rel-6-0-0-beta6?rev=11571">tags/rel-6-0-0-beta6</option><option value="/mapserver/browser/tags/rel-6-0-0-beta7?rev=11610">tags/rel-6-0-0-beta7</option><option value="/mapserver/browser/tags/rel-6-0-0-rc1?rev=11625">tags/rel-6-0-0-rc1</option><option value="/mapserver/browser/tags/rel-6-0-0-rc2?rev=11659">tags/rel-6-0-0-rc2</option><option value="/mapserver/browser/tags/rel-6-0-1?rev=11912">tags/rel-6-0-1</option><option value="/mapserver/browser/tags/rel-6-0-2?rev=13094">tags/rel-6-0-2</option>
-              </optgroup>
-            </select>
-            <input type="submit" value="Go!" title="Jump to the chosen preselected path" />
-          </div>
-        </form>
-      </div>
-      <table id="info" summary="Revision info">
-        <tr>
-          <th scope="col">
-            Revision <a href="/mapserver/changeset/13141">13141</a>, <span title="1746 bytes">1.7 KB</span>
-            (checked in by tbonfort, <a class="timeline" href="/mapserver/timeline?from=2012-02-13T05%3A07%3A23-0800&amp;precision=second" title="2012-02-13T05:07:23-0800 in Timeline">10 days</a> ago)
-          </th>
-        </tr>
-        <tr>
-          <td class="message searchable">
-              <p>
-fix missing element in msCopyLabel<br />
-</p>
-          </td>
-        </tr>
-      </table>
-      <div id="preview" class="searchable">
-    <table class="code"><thead><tr><th class="lineno" title="Line numbers">Line</th><th class="content"> </th></tr></thead><tbody><tr><th id="L1"><a href="#L1">1</a></th><td><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></td></tr><tr><th id="L2"><a href="#L2">2</a></th><td></td></tr><tr><th id="L3"><a href="#L3">3</a></th><td><span class="c">&lt;!-- see the accompanying mapcache.xml.sample for a fully commented configuration file --&gt;</span></td></tr><tr><th id="L4"><a href="#L4">4</a></th><td></td></tr><tr><th id="L5"><a href="#L5">5</a></th><td><span class="nt">&lt;mapcache&gt;</span></td></tr><tr><th id="L6"><a href="#L6">6</a></th><td>   <span class="nt">&lt;cache</span> <span class="na">name=</span><span class="s">"disk"</span> <span class="na">type=</span><span class="s">"disk"</span><span class="nt">&gt;</span></td></tr><tr><th id="L7"><a href="#L7">7</a></th><td>      <span class="nt">&lt;base&gt;</span>/tmp<span class="nt">&lt;/base&gt;</span></td></tr><tr><th id="L8"><a href="#L8">8</a></th><td>      <span class="nt">&lt;symlink_blank/&gt;</span></td></tr><tr><th id="L9"><a href="#L9">9</a></th><td>   <span class="nt">&lt;/cache&gt;</span></td></tr><tr><th id="L10"><a href="#L10">10</a></th><td></td></tr><tr><th id="L11"><a href="#L11">11</a></th><td>   <span class="nt">&lt;source</span> <span class="na">name=</span><span class="s">"vmap0"</span> <span class="na">type=</span><span class="s">"wms"</span><span class="nt">&gt;</span></td></tr><tr><th id="L12"><a href="#L12">12</a></th><td>      <span class="nt">&lt;getmap&gt;</span></td></tr><tr><th id="L13"><a href="#L13">13</a></th><td>         <span class="nt">&lt;params&gt;</span></td></tr><tr><th id="L14"><a href="#L14">14</a></th><td>            <span class="nt">&lt;FORMAT&gt;</span>image/png<span class="nt">&lt;/FORMAT&gt;</span></td></tr><tr><th id="L15"><a href="#L15">15</a></th><td>            <span class="nt">&lt;LAYERS&gt;</span>default<span class="nt">&lt;/LAYERS&gt;</span></td></tr><tr><th id="L16"><a href="#L16">16</a></th><td>         <span class="nt">&lt;/params&gt;</span></td></tr><tr><th id="L17"><a href="#L17">17</a></th><td>      <span class="nt">&lt;/getmap&gt;</span></td></tr><tr><th id="L18"><a href="#L18">18</a></th><td>      </td></tr><tr><th id="L19"><a href="#L19">19</a></th><td>      <span class="nt">&lt;http&gt;</span></td></tr><tr><th id="L20"><a href="#L20">20</a></th><td>         <span class="nt">&lt;url&gt;</span>http://localhost/cgi-bin/mapserv?map=/gro1/mapserver-utils/osm-google.map<span class="nt">&lt;/url&gt;</span></td></tr><tr><th id="L21"><a href="#L21">21</a></th><td>      <span class="nt">&lt;/http&gt;</span></td></tr><tr><th id="L22"><a href="#L22">22</a></th><td>   <span class="nt">&lt;/source&gt;</span></td></tr><tr><th id="L23"><a href="#L23">23</a></th><td>   <span class="nt">&lt;source</span> <span class="na">name=</span><span class="s">"ms"</span> <span class="na">type=</span><span class="s">"mapserver"</span><span class="nt">&gt;</span></td></tr><tr><th id="L24"><a href="#L24">24</a></th><td>      <span class="nt">&lt;mapfile&gt;</span>/gro1/mapserver-utils/osm-google.map<span class="nt">&lt;/mapfile&gt;</span></td></tr><tr><th id="L25"><a href="#L25">25</a></th><td>   <span class="nt">&lt;/source&gt;</span></td></tr><tr><th id="L26"><a href="#L26">26</a></th><td>   </td></tr><tr><th id="L27"><a href="#L27">27</a></th><td>   <span class="nt">&lt;tileset</span> <span class="na">name=</span><span class="s">"test"</span><span class="nt">&gt;</span></td></tr><tr><th id="L28"><a href="#L28">28</a></th><td>      <span class="nt">&lt;source&gt;</span>vmap0<span class="nt">&lt;/source&gt;</span></td></tr><tr><th id="L29"><a href="#L29">29</a></th><td>      <span class="nt">&lt;cache&gt;</span>disk<span class="nt">&lt;/cache&gt;</span></td></tr><tr><th id="L30"><a href="#L30">30</a></th><td>      <span class="nt">&lt;grid&gt;</span>WGS84<span class="nt">&lt;/grid&gt;</span></td></tr><tr><th id="L31"><a href="#L31">31</a></th><td>      <span class="nt">&lt;grid&gt;</span>g<span class="nt">&lt;/grid&gt;</span></td></tr><tr><th id="L32"><a href="#L32">32</a></th><td>      <span class="nt">&lt;format&gt;</span>PNG<span class="nt">&lt;/format&gt;</span></td></tr><tr><th id="L33"><a href="#L33">33</a></th><td>      <span class="nt">&lt;metatile&gt;</span>5 5<span class="nt">&lt;/metatile&gt;</span></td></tr><tr><th id="L34"><a href="#L34">34</a></th><td>      <span class="nt">&lt;metabuffer&gt;</span>10<span class="nt">&lt;/metabuffer&gt;</span></td></tr><tr><th id="L35"><a href="#L35">35</a></th><td>      <span class="nt">&lt;expires&gt;</span>3600<span class="nt">&lt;/expires&gt;</span></td></tr><tr><th id="L36"><a href="#L36">36</a></th><td>   <span class="nt">&lt;/tileset&gt;</span></td></tr><tr><th id="L37"><a href="#L37">37</a></th><td>   <span class="nt">&lt;tileset</span> <span class="na">name=</span><span class="s">"ms"</span><span class="nt">&gt;</span></td></tr><tr><th id="L38"><a href="#L38">38</a></th><td>      <span class="nt">&lt;source&gt;</span>ms<span class="nt">&lt;/source&gt;</span></td></tr><tr><th id="L39"><a href="#L39">39</a></th><td>      <span class="nt">&lt;cache&gt;</span>disk<span class="nt">&lt;/cache&gt;</span></td></tr><tr><th id="L40"><a href="#L40">40</a></th><td>      <span class="nt">&lt;grid&gt;</span>WGS84<span class="nt">&lt;/grid&gt;</span></td></tr><tr><th id="L41"><a href="#L41">41</a></th><td>      <span class="nt">&lt;grid&gt;</span>g<span class="nt">&lt;/grid&gt;</span></td></tr><tr><th id="L42"><a href="#L42">42</a></th><td>      <span class="nt">&lt;format&gt;</span>PNG<span class="nt">&lt;/format&gt;</span></td></tr><tr><th id="L43"><a href="#L43">43</a></th><td>      <span class="nt">&lt;metatile&gt;</span>5 5<span class="nt">&lt;/metatile&gt;</span></td></tr><tr><th id="L44"><a href="#L44">44</a></th><td>      <span class="nt">&lt;metabuffer&gt;</span>10<span class="nt">&lt;/metabuffer&gt;</span></td></tr><tr><th id="L45"><a href="#L45">45</a></th><td>      <span class="nt">&lt;expires&gt;</span>3600<span class="nt">&lt;/expires&gt;</span></td></tr><tr><th id="L46"><a href="#L46">46</a></th><td>   <span class="nt">&lt;/tileset&gt;</span></td></tr><tr><th id="L47"><a href="#L47">47</a></th><td></td></tr><tr><th id="L48"><a href="#L48">48</a></th><td></td></tr><tr><th id="L49"><a href="#L49">49</a></th><td>   <span class="nt">&lt;default_format&gt;</span>JPEG<span class="nt">&lt;/default_format&gt;</span></td></tr><tr><th id="L50"><a href="#L50">50</a></th><td></td></tr><tr><th id="L51"><a href="#L51">51</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"wms"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">&gt;</span></td></tr><tr><th id="L52"><a href="#L52">52</a></th><td>      <span class="nt">&lt;full_wms&gt;</span>assemble<span class="nt">&lt;/full_wms&gt;</span></td></tr><tr><th id="L53"><a href="#L53">53</a></th><td>      <span class="nt">&lt;resample_mode&gt;</span>bilinear<span class="nt">&lt;/resample_mode&gt;</span></td></tr><tr><th id="L54"><a href="#L54">54</a></th><td>      <span class="nt">&lt;format&gt;</span>JPEG<span class="nt">&lt;/format&gt;</span></td></tr><tr><th id="L55"><a href="#L55">55</a></th><td>      <span class="nt">&lt;maxsize&gt;</span>4096<span class="nt">&lt;/maxsize&gt;</span></td></tr><tr><th id="L56"><a href="#L56">56</a></th><td>   <span class="nt">&lt;/service&gt;</span></td></tr><tr><th id="L57"><a href="#L57">57</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"wmts"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L58"><a href="#L58">58</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"tms"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L59"><a href="#L59">59</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"kml"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L60"><a href="#L60">60</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"gmaps"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L61"><a href="#L61">61</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"ve"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L62"><a href="#L62">62</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"demo"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L63"><a href="#L63">63</a></th><td></td></tr><tr><th id="L64"><a href="#L64">64</a></th><td>   <span class="nt">&lt;errors&gt;</span>report<span class="nt">&lt;/errors&gt;</span></td></tr><tr><th id="L65"><a href="#L65">65</a></th><td>   <span class="nt">&lt;lock_dir&gt;</span>/tmp<span class="nt">&lt;/lock_dir&gt;</span></td></tr><tr><th id="L66"><a href="#L66">66</a></th><td></td></tr><tr><th id="L67"><a href="#L67">67</a></th><td><span class="nt">&lt;/mapcache&gt;</span></td></tr></tbody></table>
-      </div>
-      <div id="help">
-        <strong>Note:</strong> See <a href="/mapserver/wiki/TracBrowser">TracBrowser</a>
-        for help on using the browser.
-      </div>
-      <div id="anydiff">
-        <form action="/mapserver/diff" method="get">
-          <div class="buttons">
-            <input type="hidden" name="new_path" value="/trunk/mapserver/mapcache/mapcache.xml" />
-            <input type="hidden" name="old_path" value="/trunk/mapserver/mapcache/mapcache.xml" />
-            <input type="hidden" name="new_rev" />
-            <input type="hidden" name="old_rev" />
-            <input type="submit" value="View changes..." title="Select paths and revs for Diff" />
-          </div>
-        </form>
-      </div>
-    </div>
-    <div id="altlinks">
-      <h3>Download in other formats:</h3>
-      <ul>
-        <li class="first">
-          <a rel="nofollow" href="/mapserver/browser/trunk/mapserver/mapcache/mapcache.xml?format=txt">Plain Text</a>
-        </li><li class="last">
-          <a rel="nofollow" href="/mapserver/export/13168/trunk/mapserver/mapcache/mapcache.xml">Original Format</a>
-        </li>
-      </ul>
-    </div>
-    </div>
-    <div id="footer" lang="en" xml:lang="en"><hr />
-      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/mapserver/chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
-      <p class="left">
-        Powered by <a href="/mapserver/about"><strong>Trac 0.11.7</strong></a><br />
-        By <a href="http://www.edgewall.org/">Edgewall Software</a>.
-      </p>
-      <p class="right">Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a></p>
-    </div>
-  </body>
-</html>
+   <service type="wms" enabled="true">
+      <full_wms>assemble</full_wms>
+      <resample_mode>bilinear</resample_mode>
+      <format>JPEG</format>
+      <maxsize>4096</maxsize>
+   </service>
+   <service type="wmts" enabled="true"/>
+   <service type="tms" enabled="true"/>
+   <service type="kml" enabled="true"/>
+   <service type="gmaps" enabled="true"/>
+   <service type="ve" enabled="true"/>
+   <service type="demo" enabled="true"/>
+
+   <errors>report</errors>
+   <lock_dir>/tmp</lock_dir>
+
+</mapcache>
