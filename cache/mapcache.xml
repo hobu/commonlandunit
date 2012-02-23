@@ -1,846 +1,154 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mapcache>
-   <metadata>
-      <title>my mapcache service</title>
-      <abstract>woot! this is a service abstract!</abstract>
-
-      <!-- url
-
-           uncomment and modify this if you need to provide another base url for
-           getCapabilities requests (for the OnlineResource tags). You should use 
-           this if there's a proxy between the client and the mod-mapcache service
-           and you want the capabilities document to point to the correct endpoints.
-      
-      <url>http://mysuperhost/proxy/to/mapcache</url>
-      -->
-   </metadata>
-
-   <!--
-        a grid represents the layout of tiles: srs, extent, resolutions, and tile size
-   -->
-   <grid name="testgrid">
-      <metadata>
-         <title>this is a custom grid I made up for an example</title>
-         <!--
-              OGC WMTS WellKnownScaleSet, if applicable
-         <WellKnownScaleSet>urn:ogc:def:wkss:OGC:1.0:GoogleMapsCompatible</WellKnownScaleSet>
-         -->
-      </metadata>
-
-      <!-- 
-           the spatial reference this tileset is in. a WMS client will need this for
-           getMap requests. This is the srs that will be sent to the WMS source during
-           a request, make sure that this srs is supported by the wms.
-      -->
-      <srs>EPSG:4326</srs>
-
-      <!--
-           equivalent values for the SRS that can be requested by a client.
-           this value is essentially here to be able to support:
-            - EPSG:900913 and EPSG:3857 for the googleMapsCompatible gridset
-            - EPSG:2154 and IGNF:LAMB93
-      -->
-      <srsalias>EPSG:foobar</srsalias>
-
-      <!--
-           width and height of tiles. 256x256 is the usual size
-      -->
-      <size>256 256</size>
-
-      <!--
-           extent of the grid. the bottom left corner determines the origin of the tiles
-           this should match the maxExtent property if using openlayers.
-      -->
-      <extent>-180 -90 180 90</extent>
-
-      <!--
-           array of resolutions for the tileset, in decreasing order
-           this should match the resolutions property if using openlayers
-      -->
-      <resolutions>0.1 0.05 0.025 0.0125</resolutions>
-   </grid>
-
-   <!--
-         there are three preconfigured grids you can use in <tileset>s without having to
-         explicitely define them here:
-         <grid name="WGS84">
-            <metadata>
-               <title>GoogleCRS84Quad</title>
-               <WellKnownScaleSet>urn:ogc:def:wkss:OGC:1.0:GoogleCRS84Quad</WellKnownScaleSet>
-            </metadata>
-            <extent>-180 -90 180 90</extent>
-            <srs>EPSG:4326</srs>
-            <units>dd</units>
-            <size>256 256</size>
-            <resolutions>1.40625000000000 0.703125000000000 0.351562500000000 0.175781250000000 8.78906250000000e-2 4.39453125000000e-2 2.19726562500000e-2 1.09863281250000e-2 5.49316406250000e-3 2.74658203125000e-3 1.37329101562500e-3 6.86645507812500e-4 3.43322753906250e-4 1.71661376953125e-4 8.58306884765625e-5 4.29153442382812e-5 2.14576721191406e-5 1.07288360595703e-5 5.36441802978516e-6</resolutions>
-         </grid>
-
-         <grid name="GoogleMapsCompatible">
-            <metadata>
-               <title>GoogleMapsCompatible</title>
-               <WellKnownScaleSet>urn:ogc:def:wkss:OGC:1.0:GoogleMapsCompatible</WellKnownScaleSet>
-            </metadata>
-            <extent>-20037508.3427892480 -20037508.3427892480 20037508.3427892480 20037508.3427892480</extent>
-            <srs>EPSG:3857</srs>
-            <srsalias>EPSG:900913</srsalias>
-            <units>m</units>
-            <size>256 256</size>
-            <resolutions>156543.0339280410 78271.51696402048 39135.75848201023 19567.87924100512 9783.939620502561 4891.969810251280 2445.984905125640 1222.992452562820 611.4962262814100 305.7481131407048 152.8740565703525 76.43702828517624 38.21851414258813 19.10925707129406 9.554628535647032 4.777314267823516 2.388657133911758 1.194328566955879 0.5971642834779395</resolutions>
-         </grid>
-   --> 
-
-   <!-- this grid is identical to the previous one, except that it uses EPSG:900913 as the default srs as it is more supported -->
-   <!--
-        <grid name="g">
-            <metadata>
-               <title>GoogleMapsCompatible</title>
-               <WellKnownScaleSet>urn:ogc:def:wkss:OGC:1.0:GoogleMapsCompatible</WellKnownScaleSet>
-            </metadata>
-            <extent>-20037508.3427892480,-20037508.3427892480,20037508.3427892480,20037508.3427892480</extent>
-            <srs>EPSG:900913</srs>
-            <srsalias>EPSG:3857</srsalias>
-            <size>256 256</size>
-            <resolutions>
-               156543.0339280410
-               78271.51696402048
-               39135.75848201023
-               19567.87924100512
-               9783.939620502561
-               4891.969810251280
-               2445.984905125640
-               1222.992452562820
-               611.4962262814100
-               305.7481131407048
-               152.8740565703525
-               76.43702828517624
-               38.21851414258813
-               19.10925707129406
-               9.554628535647032
-               4.777314267823516
-               2.388657133911758
-               1.194328566955879
-               0.5971642834779395
-            </resolutions>
-         </grid>
-   --> 
-
-
-   <!-- Lambert93 -->
-   <grid name="LAMB93">
-      <metadata>
-         <title>Lambert 1993</title>
-      </metadata>
-      <extent>-357823.2365 6037008.6939 1313632.3628 7230727.3772</extent>
-      <srs>EPSG:2154</srs>
-      <srsalias>IGNF:LAMB93</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-
-   <!-- RGF93 -->
-   <grid name="RGF93">
-      <metadata>
-         <title></title>
-      </metadata>
-      <extent>-9.62 41.18 10.3 51.54</extent>
-      <srs>EPSG:4171</srs>
-      <srsalias>IGNF:RGF93</srsalias>
-      <resolutions>0.026726773770953713 0.013363386885476856 0.006681693442738428 0.003340846721369214 0.001670423360684607 0.0008352116803423035 0.00041760584017115176 0.00020880292008557588 0.00010440146004278794 0.00005220073002139397 0.000026100365010696985 0.000013050182505348493 0.000006525091252674246 0.000003262545626337123 0.0000016312728131685616 0.0000008156364065842808</resolutions>
-      <units>dd</units>
-      <size>256 256</size>
-   </grid>
-
-   
-   <!-- french geoportail grids -->
-   <grid name="FXX">
-      <metadata>
-         <title>Géoportail - France métropolitaine</title>
-      </metadata>
-      <extent>-524288 4456448 786432 5767168</extent>
-      <srs>EPSG:310024802</srs>
-      <srsalias>IGNF:GEOPORTALFXX</srsalias>
-      <srsalias>EPSG:310024001</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="ANF">
-      <metadata>
-         <title>Géoportail - Antilles françaises</title>
-      </metadata>
-      <extent>-6791168 1761280 -6553600 2023424</extent>
-      <srs>EPSG:310915814</srs>
-      <srsalias>IGNF:GEOPORTALANF</srsalias>
-      <srsalias>EPSG:310495002</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="GUF">
-      <metadata>
-         <title>Géoportail - Guyane</title>
-      </metadata>
-      <extent>-6070272 235047 -5726208 647168</extent>
-      <srs>EPSG:310486805</srs>
-      <srsalias>IGNF:GEOPORTALGUF</srsalias>
-      <srsalias>EPSG:310486003</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="MYT">
-      <metadata>
-         <title>Géoportail - Mayotte</title>
-      </metadata>
-      <extent>4901888 -1447936 4932608 -1405952</extent>
-      <srs>EPSG:310702807</srs>
-      <srsalias>IGNF:GEOPORTALMYT</srsalias>
-      <srsalias>EPSG:310702005</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="REU">
-      <metadata>
-         <title>Géoportail - Réunion et dépendances</title>
-      </metadata>
-      <extent>5734400 -2383872 5808128 -2318336</extent>
-      <srs>EPSG:310700806</srs>
-      <srsalias>IGNF:GEOPORTALREU</srsalias>
-      <srsalias>EPSG:310700004</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="NCL">
-      <metadata>
-         <title>Géoportail - Nouvelle-Calédonie</title>
-      </metadata>
-      <extent>16777216 -2555904 17301504 -2162688</extent>
-      <srs>EPSG:310547809</srs>
-      <srsalias>IGNF:GEOPORTALNCL</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="SPM">
-      <metadata>
-         <title>Géoportail - Saint-Pierre et Miquelon</title>
-      </metadata>
-      <extent>-4325376 5177344 -4259840 5308416</extent>
-      <srs>EPSG:310706808</srs>
-      <srsalias>IGNF:GEOPORTALSPM</srsalias>
-      <srsalias>EPSG:310706006</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="WLF">
-      <metadata>
-         <title>Géoportail - Wallis et Futuna</title>
-      </metadata>
-      <extent>-19267584 -1638400 -19005440 -1441792</extent>
-      <srs>EPSG:310642810</srs>
-      <srsalias>IGNF:GEOPORTALWLF</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="CRZ">
-      <metadata>
-         <title>Géoportail - Crozet</title>
-      </metadata>
-      <extent>3801088 -5242880 4128768 -5046272</extent>
-      <srs>EPSG:310642801</srs>
-      <srsalias>IGNF:GEOPORTALCRZ</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="KER">
-      <metadata>
-         <title>Géoportail - Kerguelen</title>
-      </metadata>
-      <extent>4915200 -5636096 5177344 -5373952</extent>
-      <srs>EPSG:310642812</srs>
-      <srsalias>IGNF:GEOPORTALKER</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="PYF">
-      <metadata>
-         <title>Géoportail - Polynésie française</title>
-      </metadata>
-      <extent>-16384000 -2097152 -15990784 -1703936</extent>
-      <srs>EPSG:310032811</srs>
-      <srsalias>IGNF:GEOPORTALPYF</srsalias>
-      <srsalias>EPSG:310032009</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="ASP">
-      <metadata>
-         <title>Géoportail - Amsterdam et Saint-Paul</title>
-      </metadata>
-      <extent>-6791168 1761280 -6553600 2023424</extent>
-      <srs>EPSG:310642813</srs>
-      <srsalias>IGNF:GEOPORTALASP</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="TERA">
-      <metadata>
-         <title>Terre Adélie 1950</title>
-      </metadata>
-      <extent>196098 225276 720386 749564</extent>
-      <srs>EPSG:2986</srs>
-      <srsalias>IGNF:TERA50STEREO</srsalias>
-      <resolutions>2048 1024 512 256 128 64 32 16 8 4 2 1 0.5 0.25 0.125 0.0625</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-   <grid name="MILLER">
-      <metadata>
-         <title>Géoportail - Monde</title>
-      </metadata>
-      <extent>-20037504 -10018752 20037504 10018752</extent>
-      <srs>EPSG:310642901</srs>
-      <srsalias>IGNF:MILLER</srsalias>
-      <resolutions>39135.75 19567.875 9783.9375 4891.96875 2445.984375</resolutions>
-      <units>m</units>
-      <size>256 256</size>
-   </grid>
-
-   <!--
-        a cache is where tiles are stored once they have been rendered
-   -->
-   <cache name="disk" type="disk">
-
-      <!-- base
-           
-           absolute filesystem path where the tile structure will be stored.
-           this directory needs to be readable and writable by the user running
-           apache
-      -->
-      <base>/tmp</base>
-
-      <!-- symlink_blank
-           
-           enable blank (i.e. uniform color) tile detection. blank tiles will be
-           detected at creation time and linked to a single blank tile on disk to
-           preserve disk space.
-      -->
-      <symlink_blank/>
-   </cache>
-
-   <cache name="tmpl" type="disk">
-      <!-- template
-
-          string template that will be used to map a tile (by tileset, grid name, dimension,
-          format, x, y, and z) to a filename on the filesystem.
-          the following replacements are performed:
-          - {tileset} : the tileset name
-          - {grid} : the grid name
-          - {dim} : a string that concatenates the tile's dimension
-          - {ext} : the filename extension for the tile's image format
-          - {x},{y},{z} : the tile x,y,z values
-          - {inv_x}, {inv_y}, {inv_z} : inverted x,y,z values (inv_x = level->maxx - x - 1). This
-               is mainly used to support grids where one axis is inverted (e.g. the google schema)
-               and you want to create on offline cache.
-
-         * note that this type of cache does not support blank-tile detection and symlinking.
-      
-         * warning: it is up to you to make sure that the template you chose creates a unique
-           filename for your given tilesets. e.g. do not ommit the {grid} parameter if your
-           tilesets reference multiple grids. Failure to do so will result in filename
-           collisions ! 
-
-      -->
-      <template>/tmp/template-test/{tileset}#{grid}#{dim}/{z}/{x}/{y}.{ext}</template>
-   </cache>
-
-   <!-- memcache cache
-        entry accepts multiple <server> entries
-        requires a fairly recent apr-util library and headers
-   <cache name="memcache" type="memcache">
-      <server>
-         <host>localhost</host>
-         <port>11211</port>
-      </server>
-   </cache>
-   -->
-   
-   <!-- sqlite cache
-        requires building with "with-sqlite"
-   -->
-   <cache name="sqlite" type="sqlite3">
-      <!-- base
-           
-           absolute filesystem path where the sqlite database files will be stored.
-           this directory needs to be readable and writable by the user running
-           apache
-      -->
-      <dbname_template>/tmp/{tileset}-{grid}.db</dbname_template>
-      <!-- hitstats
-           log last access time and total number of hits for each tile in the cache.
-           note that this slows the tile accesses drastically as it requires a write
-           to the database for each tile access
-      -->
-      <hitstats>false</hitstats>
-   </cache>
-   <!--
-   <cache name="mbtiles" type="mbtiles">
-      <dbname_template>/Users/tbonfort/Documents/MapBox/tiles/natural-earth-1.mbtiles</dbname_template>
-   </cache>
-   -->
-
-   <!-- format
-
-        a format is an image algorithm used for compressing images
-        types can be "PNG" or "JPEG"
-   -->
-   <format name="PNGQ_FAST" type ="PNG">
-      
-      <!-- compression
-
-           png compression: best or fast
-           note that "best" compression is cpu intensive for little gain over the default
-           default compression is obtained by leving out this tag.
-      -->
-      <compression>fast</compression>
-
-      <!-- colors
-
-         if supplied, this enables png quantization which reduces the number of colors
-         in an image to atain higher compression. this operation is destructive, and can
-         cause artifacts in the stored image.
-         the number of colors can be between 2 and 256
-     -->
-     <colors>256</colors>
-   </format>
-   <format name="myjpeg" type ="JPEG">
-      <!-- quality
-
-           JPEG compression quality, ranging from 0 to 100
-           95 produces high quality images with few visual artifacts
-           values under around 80 produce small images but with visible artifacts.
-           YMMV
-      -->
-      <quality>75</quality>  
-
-      <photometric>RGB</photometric>   <!-- RGB | YCBCR -->
-   </format>
-   <format name="PNG_BEST" type ="PNG">
-      <compression>best</compression>
-   </format>
-
-   <format name="mixed" type="MIXED">
-      <transparent>PNG_BEST</transparent>
-      <opaque>JPEG</opaque>
-   </format>
-
-   <!--
-   <source name="bluemarble" type="gdal">
-      <data>/gro2/data/bluemarble/bluemarble.vrt</data>
-   </source>
-   -->
-   <!-- source
-
-      the service to query for obtaining images if they are not in the cache
-      for now, type can only be "wms"
-   -->
-   <source name="vmap0" type="wms">
-      
-      <!-- getmap
-
-         extra parameters that will be added to the GetMap request. you can specify any
-         parameter here, e.g. VERSION if you want to override the version of the WMS
-         request.
-         the LAYERS parameter is mandatory.
-         usual parameters here are FORMAT , or MAP if using mapserver
-      -->
-      <getmap>
-         <params>
-            <FORMAT>image/png</FORMAT>
-            <LAYERS>basic</LAYERS>
-         </params>
-      </getmap>
-      
-      <!-- http
-
-         http url and parameters that will be used when making WMS requests
-      -->
-      <http>
-         
-         <!-- url
-
-         url of the wms service, without any parameters
-         -->
-         <url>http://vmap0.tiles.osgeo.org/wms/vmap0</url>
-         
-         <!-- headers
-
-            http headers added to request. make sure you know what you are 
-            doing when adding a header here, as they take precedence over any
-            default headers curl will be adding to the request.
-            typical headers that can be added here are User-Agent and Referer.
-            
-            when adding a <key>value</key> element here, the request to the
-            wms source will contain the
-
-            key: value\r\n
-
-            HTTP header.
-         -->
-         <!--
-         <headers>
-            <User-Agent>mod-mapcache/r175</User-Agent>
-            <Referer>http://www.mysite.com?param=2&amp;par=4</Referer>
-         </headers>
-         -->
-
-         <!-- TODO other http parameters
-              * PROXY
-              * AUTH
-         -->
-
-         <!-- timeout in seconds before bailing out from a request -->
-         <connection_timeout>30</connection_timeout>
-      </http>
-   </source>
-   <source name="osm" type="wms">
-      <http>
-         <url>http://localhost/cgi-bin/mapserv?</url>
-      </http>
-      <getmap>
-         <params>
-            <FORMAT>image/png</FORMAT>
-            <LAYERS>default</LAYERS>
-            <!--<MAP>/Users/tbonfort/dev/mapserver-utils/empty.map</MAP>-->
-            <MAP>/Users/tbonfort/dev/mapserver-utils/osm-google.map</MAP>
-         </params>
-      </getmap>
-   </source>
-   <source name="nexrad" type="wms">
-      <http>
-         <url>http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi</url>
-      </http>
-      <getmap>
-         <params>
-            <FORMAT>image/png</FORMAT>
-            <LAYERS>nexrad_base_reflect</LAYERS>
-            <TRANSPARENT>true</TRANSPARENT>
-         </params>
-      </getmap>
-   </source>
-   <source name="basic" type="wms">
-      <http>
-         <url>http://geoservices.brgm.fr/geologie?</url>
-      </http>
-      <getmap>
-         <params>
-            <FORMAT>image/png</FORMAT>
-            <LAYERS>GRAVI_BASE</LAYERS>
-            <TRANSPARENT>true</TRANSPARENT>
-         </params>
-      </getmap>
-
-      <!-- getfeatureinfo
-           additional parameters to use if you want to enable proxying GetFeatureInfo requests
-           to this source
-      -->
-      <getfeatureinfo>
-         <!-- info_formats: comma separated list of wms info_formats supported by the source WMS.
-              you can get this list by studying the source WMS capabilities document.
-         -->
-         <info_formats>text/plain,application/vnd.ogc.gml</info_formats>
-
-         <!-- KVP params to pass with the request. QUERY_LAYERS is mandatory -->
-         <params>
-            <QUERY_LAYERS>GRAVI_BASE</QUERY_LAYERS>
-         </params>
-      </getfeatureinfo>
-   </source>
-
-   <!-- tileset
-      a tileset regroups a <source>, <grid> and <cache>.
-      the "name" parameter is mandatory, and represents the key by which this tileset
-      will be requested by clients (e.g. in the WMS LAYERS parameter)
-   -->
-   <tileset name="test">
-
-      <!-- source: the "name" attribute of a preconfigured <source> -->
-      <source>vmap0</source>
-
-      <!-- cache: the "name" attribute of a preconfigured <cache> -->
-      <cache>sqlite</cache>
-
-      <!-- grid: the "name" attribute of a preconfigured <grid> 
-         you can also use the following notation to limit the area that will be cached and served to clients:
-         <grid restricted_extent="-10 40 10 50">WGS84</grid>
-         this way is better than using a grid with a limited extent, as in this way the tiles that are already
-         cached are not invalidated should you want to modify the restricted extent in the future. When using
-         the restricted_extent attribute, you should give the corresponding information to the client that will
-         be using the service.
-         you can also limit the zoom levels that are cached/accessible by using the minzoom, maxzoom attributes.
-
-
-         NOTE: when adding a <grid> element, you *MUST* make sure that the source you have selected is able to
-         return images in the grid's srs.
-      -->
-         <grid restricted_extent="-10 40 10 50" minzoom="6" maxzoom="8">WGS84</grid>
-         <grid>g</grid>
-
-      <!-- metadata
-         optional metadata tags used for responding to GetCapabilities request.
-         you can put anything in here, although only the title and abstract tags
-         are currently used to populate the GetCapabilities document.
-      -->
-      <metadata>
-         <title>vmap0 map</title>
-         <abstract>blabla</abstract>
-      </metadata>
-
-      <!-- watermark
-
-         optional tag to add a watermark to the tiles *before* storing them to cache
-         the supplied image MUST be exactly the same size as the size of the tiles
-         configured in the <grid>
-         the supplied image is read when the configuration is loaded.
-         if you make changes to the image, they will NOT be reflected on tiles already
-         stored in the cache, nor on newly stored tiles until the server is restarted
-      <watermark>/home/tbonfort/dev/mod-mapcache/static/watermark.png</watermark>
-      -->
-      
-      <!-- format
-         (optional) format to use when storing a tile. this should be a format with high
-         compression, eg. png with compression "best", as the compression operation is only
-         done once at creation time.
-         if left out, no recompression is applied to the image, mod-mapcache will store the
-         exact image received from the <source>
-         note that the <format> tag is mandatory if metatile, metabuffer or watermark are
-         supplied, as in those cases a recompression has to be done.
-      -->
-      <format>PNG</format>
-
-      <!-- metatile
-         number of columns and rows to use for metatiling, see http://geowebcache.org/docs/current/concepts/metatiles.html
-      -->
-      <metatile>5 5</metatile>
-
-      <!-- metabuffer
-         area around the tile or metatile that will be cut off to prevent some edge artifacts.
-         if using this, the configured source must be instructed not to put any labels inside
-         this area, as otherwise this will result in truncated labels (for mapserver, this is
-         the "labelcache_map_edge_buffer" "-10" metadata entry, along with label PARTIALS FALSE
-      -->
-      <metabuffer>10</metabuffer>
-
-      <!-- expires
-         optional expiration value in seconds for a tile. this is expressed in a number of seconds
-         after the creation date of the tile
-         This is the value that will be set in the HTTP Expires and Cache-Control headers, and has
-         no effect on the actual expiration of tiles on the caches. See <auto_expire> for that.
-      -->
-      <expires>3600</expires>
-
-      <!-- auto_expire
-         automatically re-request tiles and update the cache once they are older than the given number
-         of seconds after their creation.
-         Note that this will only delete tiles form the cache when they are accessed, you cannot
-         use this configuration to limit the size of the created cache.
-         Note that if set, this value overrides the value given by <expires>
-      -->
-      <auto_expire>86400</auto_expire>
-      
-      <!-- dimensions
-         optional dimensions that should be cached
-         the order of the <dimension> tags inside the <dimensions> is important as it is used
-         to create the directory structure for the disk cache. i.e. if you change the order of these
-         values, any tiles that have been previously cached are invalidated (but not removed from the 
-         cache, it's just they don't exist anymore for mod-mapcache
-      -->
-      <dimensions>
-         <!-- values dimension 
-            the example here creates a DIM1 dimension
-             * WMS and WMTS clients can now add a &DIM1=value to their request string. If they don't
-            specify this key/value, the default will be to use DIM1=foobar
-             * the allowed values for DIM1= are foobar (it is important to add the default value to the
-               allowed values entry), foobarbaz, foo and bar.
-             * the value specified for DIM1 will be forwarded to the WMS source
-             * the produced tile will be stored in base/gridname/DIM1/value/xx/xx/xx/xx/xx/xx.png
-               file. i.e. their are as many different caches created as their are values in the
-               <values> tag.
-         -->
-         <dimension type="values" name="DIM1" default="foobar">foobar,foobarbaz,foo,bar</dimension>
-         
-         <!-- regex dimension
-            the following creates a MAPFILE dimension, for using the same mod-mapcache tileset with different
-            mapserver mapfiles. the name of the mapfiles need not be known to mod-mapcache, and can therefore be 
-            created even after mod-mapcache has been started.
-            when a user passes a MAPFILE=/path/to/mapfile, the string "/path/to/mapfile" is validated against
-            the supplied (PCRE) regular expression. The one in this example allows a name composed of aphanumeric characters
-            spearated by slashes (/) and finishing with ".map" ( [a-zA-Z0-9\./]*\.map$ ) , but will faill if there
-            are two consecutive dots (..) in the path, to prevent filesystem traversal  ( (?!.*\.\.) ).
-         -->
-         <dimension type="regex" name="MAPFILE" default="/path/to/mapfile.map">^(?!.*\.\.)[a-zA-Z0-9\./]*\.map$</dimension>
-
-         <!-- intervals dimension
-            the syntax is the same as common-ows, i.e. a comma separated list of "min/max/resolution" entries.
-            eg: 
-               * 0/5000/1000 allows the values 0,1000,2000,3000,4000 and 5000
-               * 0/100/0 allows any values between 0 and 100
-               * both values can be combined: 0/5000/1000,0/100/0
-         -->
-         <dimension name="ELEVATION" type="intervals" default="0">0/5000/1000</dimension>
-
-         <!-- coming in a future version: support for ISO8601 date/time dimensions -->
-
-      </dimensions>
-   </tileset>
-   <tileset name="test2">
-      <source>nexrad</source>
-      <cache>disk</cache>
-      <format>mixed</format>
-      <grid>WGS84</grid>
-   </tileset>
-   <tileset name="brgm">
-      <source>basic</source>
-      <cache>disk</cache>
-      <format>PNG</format>
-      <grid>WGS84</grid>
-      <metatile>5 5</metatile>
-      <metabuffer>30</metabuffer>
-   </tileset>
-   <!--
-   <tileset name="natural-earth-1">
-      <source>osm</source>
-      <cache>mbtiles</cache>
-      <format>PNG</format>
-      <grid>g</grid>
-   </tileset>
-   -->
-   <tileset name="osm">
-      <metadata>
-         <title>osm mapserver served map of midi-pyrénées</title>
-         <abstract>see http://mapserver-utils.googlecode.com</abstract>
-      </metadata>
-      <source>osm</source>
-      <cache>sqlite</cache>
-      <format>PNG</format>
-      <grid>FXX</grid>
-      <grid>MILLER</grid>
-      <grid>WGS84</grid>
-      <grid>g</grid>
-      <metatile>5 5</metatile>
-      <expires>1</expires>
-      <!--<auto_expire>86400</auto_expire>-->
-      <metabuffer>10</metabuffer>
-   </tileset>
-
-   <!--
-   <tileset name="bluemarble">
-      <source>bluemarble</source>
-      <cache>disk</cache>
-      <metatile>5 5</metatile>
-      <format>PNG</format>
-      <grid>google,WGS84</grid>
-   </tileset>
-   -->
-
-
-   <!-- default_format
-      format to use when a client asks for an image that is dynamically created from multiple
-      tiles from the cache.
-      note that using a png format with "best" compression is not recommended
-      here as it comes with a very compression overhead in terms of cpu processing. it is
-      recommended to use a png format with "fast"compression here, unless you have plenty
-      of server cpu power and or limited bandwidth
-   -->
-   <default_format>JPEG</default_format>
-
-   <!-- services
-      services that will be responded to by mod-mapcache
-      each service is accessible at the url http://host/path/to/mapcache/{service},
-      eg http://myhost/mapcache/wms for OGC WMS.
-   -->
-   <service type="wms" enabled="true">
-      <!-- this service should actually be called "ogc". It is different from the other
-           services as it does not listen on the /wms endpoint, but directly on /.
-           It will intercept wms getmap requests that can be treated from configured
-           tilesets, and can optionally forward all the rest to (an)other server(s)
-           TODO: this needs way more documenting
-      <forwarding_rule name="foo rule">
-            <append_pathinfo>true</append_pathinfo>
-            <http>
-               <url>http://localhost/mapcacheproxy</url>
-            </http>
-      </forwarding_rule>
-      -->
-      <!-- full_wms
-           configure response to wms requests that are not aligned to a tileset's grids.
-           responding to requests that are not in the SRS of a configured grid is not supported, but
-           this should never happen as only the supported SRSs are publicized in the capabilities
-           document.
-
-           allowed values are:
-             - error: return a 404 error (default)
-             - assemble: build the full image by assembling the tiles from the cache
-             - forward: forward the request to the configured source.
-      -->
-      <full_wms>assemble</full_wms>
-      <!-- resample mode
-      filter applied when resampling tiles for full wms requests.
-      can be either:
-      - nearest : fastest, poor quality
-      - bilinear: slower, higher qulity
-      -->
-      <resample_mode>bilinear</resample_mode>
-      
-      <!-- format
-         image format to use when assembling tiles
-      -->
-      <format>myjpeg</format>
-      <maxsize>4096</maxsize>
-
-   </service>
-   <service type="wmts" enabled="true"/>
-   <service type="tms" enabled="true"/>
-   <service type="kml" enabled="true"/>
-   <service type="gmaps" enabled="true"/>
-   <service type="ve" enabled="true"/>
-   <service type="demo" enabled="true"/>
-
-   <!-- errors
-        configure how error will be reported back to a client:
-          - log : no error is reported back, except an http error code.
-          - report : return the error message to the client in textual format
-          - empty_img : return an empty image to the client. the actual error code is in the X-Mapcache-Error http header
-          - report_img : return an image with the error text included inside. not implemented yet.
-
-        the default setting is to report the error message back to the user. In production, you might want to set this to "log"
-        if you're paranoid, or to "empty_img" if you want to play nice with non-conforming clients.
-   -->
-   <errors>report</errors>
-
-   
-   <!--
-        location to put lockfiles (to block other clients while a metatile is being rendered.
-        defaults to /tmp
-        this location should be writable by the apache user
-   -->
-   <lock_dir>/tmp</lock_dir>
-
-   <!-- use multiple threads when fetching multiple tiles (used for wms tile assembling -->
-   <threaded_fetching>true</threaded_fetching>
-   
-   
-   <!-- fastcgi only -->
-   <log_level>info</log_level> <!-- logging verbosity -->
-   <auto_reload>true</auto_reload> <!-- auto reload if config file changed -->
-
-</mapcache>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  
+
+
+  
+
+  <head>
+    <title>
+      /trunk/mapserver/mapcache/mapcache.xml – MapServer
+    </title>
+        <link rel="search" href="/mapserver/search" />
+        <link rel="help" href="/mapserver/wiki/TracGuide" />
+        <link rel="alternate" href="/mapserver/browser/trunk/mapserver/mapcache/mapcache.xml?format=txt" type="text/plain" title="Plain Text" /><link rel="alternate" href="/mapserver/export/13168/trunk/mapserver/mapcache/mapcache.xml" type="text/xml; charset=iso-8859-15" title="Original Format" />
+        <link rel="up" href="/mapserver/browser/trunk/mapserver/mapcache" title="Parent directory" />
+        <link rel="start" href="/mapserver/wiki" />
+        <link rel="stylesheet" href="/mapserver/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/mapserver/chrome/common/css/code.css" type="text/css" /><link rel="stylesheet" href="/mapserver/pygments/trac.css" type="text/css" /><link rel="stylesheet" href="/mapserver/chrome/common/css/browser.css" type="text/css" />
+        <link rel="shortcut icon" href="/mapserver/chrome/common/trac.ico" type="image/x-icon" />
+        <link rel="icon" href="/mapserver/chrome/common/trac.ico" type="image/x-icon" />
+      <link type="application/opensearchdescription+xml" rel="search" href="/mapserver/search/opensearch" title="Search MapServer" />
+    <script type="text/javascript" src="/mapserver/chrome/common/js/jquery.js"></script><script type="text/javascript" src="/mapserver/chrome/common/js/trac.js"></script><script type="text/javascript" src="/mapserver/chrome/common/js/search.js"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/mapserver/chrome/common/js/ie_pre7_hacks.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $(".trac-toggledeleted").show().click(function() {
+                  $(this).siblings().find(".trac-deleted").toggle();
+                  return false;
+        }).click();
+        $("#jumploc input").hide();
+        $("#jumploc select").change(function () {
+          this.parentNode.parentNode.submit();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="http://www.mapserver.org/"><img src="/mapserver/chrome/site/banner.png" alt="MapServer" height="100" width="377" /></a>
+      </div>
+      <form id="search" action="/mapserver/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="/mapserver/login">Login</a></li><li><a href="/mapserver/wiki/TracGuide">Help/Guide</a></li><li><a href="/mapserver/about">About Trac</a></li><li class="last"><a href="/mapserver/prefs">Preferences</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first"><a href="/mapserver/wiki">Wiki</a></li><li><a href="/mapserver/timeline">Timeline</a></li><li><a href="/mapserver/roadmap">Roadmap</a></li><li class="active"><a href="/mapserver/browser">Browse Source</a></li><li><a href="/mapserver/report">View Tickets</a></li><li class="last"><a href="/mapserver/search">Search</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+          <ul>
+              <li class="first"><a href="/mapserver/changeset/13141/trunk/mapserver/mapcache/mapcache.xml">Last Change</a></li><li><a href="/mapserver/browser/trunk/mapserver/mapcache/mapcache.xml?annotate=blame&amp;rev=13141" title="Annotate each line with the last changed revision (this can be time consuming...)">Annotate</a></li><li class="last"><a href="/mapserver/log/trunk/mapserver/mapcache/mapcache.xml">Revision Log</a></li>
+          </ul>
+        <hr />
+      </div>
+    <div id="content" class="browser">
+      <h1>
+    <a class="pathentry first" title="Go to root directory" href="/mapserver/browser">root</a><span class="pathentry sep">/</span><a class="pathentry" title="View trunk" href="/mapserver/browser/trunk">trunk</a><span class="pathentry sep">/</span><a class="pathentry" title="View mapserver" href="/mapserver/browser/trunk/mapserver">mapserver</a><span class="pathentry sep">/</span><a class="pathentry" title="View mapcache" href="/mapserver/browser/trunk/mapserver/mapcache">mapcache</a><span class="pathentry sep">/</span><a class="pathentry" title="View mapcache.xml" href="/mapserver/browser/trunk/mapserver/mapcache/mapcache.xml">mapcache.xml</a>
+    <br style="clear: both" />
+  </h1>
+      <div id="jumprev">
+        <form action="" method="get">
+          <div>
+            <label for="rev">
+              View revision:</label>
+            <input type="text" id="rev" name="rev" size="6" />
+          </div>
+        </form>
+      </div>
+      <div id="jumploc">
+        <form action="" method="get">
+          <div class="buttons">
+            <label for="preselected">Visit:</label>
+            <select id="preselected" name="preselected">
+              <option selected="selected"></option>
+              <optgroup label="branches">
+                <option value="/mapserver/browser/trunk">trunk</option><option value="/mapserver/browser/branches/branch-4-0">branches/branch-4-0</option><option value="/mapserver/browser/branches/branch-4-2">branches/branch-4-2</option><option value="/mapserver/browser/branches/branch-4-4">branches/branch-4-4</option><option value="/mapserver/browser/branches/branch-4-6">branches/branch-4-6</option><option value="/mapserver/browser/branches/branch-4-8">branches/branch-4-8</option><option value="/mapserver/browser/branches/branch-4-10">branches/branch-4-10</option><option value="/mapserver/browser/branches/branch-5-0">branches/branch-5-0</option><option value="/mapserver/browser/branches/branch-5-2">branches/branch-5-2</option><option value="/mapserver/browser/branches/branch-5-4">branches/branch-5-4</option><option value="/mapserver/browser/branches/branch-5-6">branches/branch-5-6</option><option value="/mapserver/browser/branches/branch-6-0">branches/branch-6-0</option>
+              </optgroup><optgroup label="tags">
+                <option value="/mapserver/browser/tags/rel-3-4?rev=256">tags/rel-3-4</option><option value="/mapserver/browser/tags/rel-3-5-0?rev=6127">tags/rel-3-5-0</option><option value="/mapserver/browser/tags/rel-3-5-old-gd?rev=290">tags/rel-3-5-old-gd</option><option value="/mapserver/browser/tags/rel-3-5-php411?rev=6127">tags/rel-3-5-php411</option><option value="/mapserver/browser/tags/rel-3-6-0?rev=6127">tags/rel-3-6-0</option><option value="/mapserver/browser/tags/rel-3-6-0-beta1?rev=6127">tags/rel-3-6-0-beta1</option><option value="/mapserver/browser/tags/rel-3-6-0-beta2?rev=1214">tags/rel-3-6-0-beta2</option><option value="/mapserver/browser/tags/rel-3-6-1?rev=1338">tags/rel-3-6-1</option><option value="/mapserver/browser/tags/rel-3-6-2?rev=1360">tags/rel-3-6-2</option><option value="/mapserver/browser/tags/rel-3-6-3?rev=1494">tags/rel-3-6-3</option><option value="/mapserver/browser/tags/rel-3-6-4?rev=1739">tags/rel-3-6-4</option><option value="/mapserver/browser/tags/rel-3-6-5?rev=1966">tags/rel-3-6-5</option><option value="/mapserver/browser/tags/rel-3-6-6?rev=2113">tags/rel-3-6-6</option><option value="/mapserver/browser/tags/rel-3-6-7?rev=2592">tags/rel-3-6-7</option><option value="/mapserver/browser/tags/rel-4-0-0?rev=2305">tags/rel-4-0-0</option><option value="/mapserver/browser/tags/rel-4-0-0-beta1?rev=2124">tags/rel-4-0-0-beta1</option><option value="/mapserver/browser/tags/rel-4-0-0-beta2?rev=2220">tags/rel-4-0-0-beta2</option><option value="/mapserver/browser/tags/rel-4-0-1?rev=2480">tags/rel-4-0-1</option><option value="/mapserver/browser/tags/rel-4-0-2?rev=2957">tags/rel-4-0-2</option><option value="/mapserver/browser/tags/rel-4-2-0?rev=3175">tags/rel-4-2-0</option><option value="/mapserver/browser/tags/rel-4-2-0-beta2?rev=3078">tags/rel-4-2-0-beta2</option><option value="/mapserver/browser/tags/rel-4-2-0-beta3?rev=3138">tags/rel-4-2-0-beta3</option><option value="/mapserver/browser/tags/rel-4-2-1?rev=3328">tags/rel-4-2-1</option><option value="/mapserver/browser/tags/rel-4-2-2?rev=3392">tags/rel-4-2-2</option><option value="/mapserver/browser/tags/rel-4-2-3?rev=3497">tags/rel-4-2-3</option><option value="/mapserver/browser/tags/rel-4-2-4?rev=3763">tags/rel-4-2-4</option><option value="/mapserver/browser/tags/rel-4-2-5?rev=3828">tags/rel-4-2-5</option><option value="/mapserver/browser/tags/rel-4-4-0?rev=4224">tags/rel-4-4-0</option><option value="/mapserver/browser/tags/rel-4-4-0-beta1?rev=3862">tags/rel-4-4-0-beta1</option><option value="/mapserver/browser/tags/rel-4-4-0-beta2?rev=3989">tags/rel-4-4-0-beta2</option><option value="/mapserver/browser/tags/rel-4-4-0-beta3?rev=4151">tags/rel-4-4-0-beta3</option><option value="/mapserver/browser/tags/rel-4-4-1?rev=4261">tags/rel-4-4-1</option><option value="/mapserver/browser/tags/rel-4-4-2?rev=4520">tags/rel-4-4-2</option><option value="/mapserver/browser/tags/rel-4-6-0?rev=4759">tags/rel-4-6-0</option><option value="/mapserver/browser/tags/rel-4-6-0-beta1?rev=4576">tags/rel-4-6-0-beta1</option><option value="/mapserver/browser/tags/rel-4-6-0-beta2?rev=4603">tags/rel-4-6-0-beta2</option><option value="/mapserver/browser/tags/rel-4-6-0-beta3?rev=4646">tags/rel-4-6-0-beta3</option><option value="/mapserver/browser/tags/rel-4-6-0-rc1?rev=4674">tags/rel-4-6-0-rc1</option><option value="/mapserver/browser/tags/rel-4-6-1?rev=4802">tags/rel-4-6-1</option><option value="/mapserver/browser/tags/rel-4-6-2?rev=5029">tags/rel-4-6-2</option><option value="/mapserver/browser/tags/rel-4-8-0?rev=5161">tags/rel-4-8-0</option><option value="/mapserver/browser/tags/rel-4-8-0-beta1?rev=4977">tags/rel-4-8-0-beta1</option><option value="/mapserver/browser/tags/rel-4-8-0-beta2?rev=5013">tags/rel-4-8-0-beta2</option><option value="/mapserver/browser/tags/rel-4-8-0-beta3?rev=5076">tags/rel-4-8-0-beta3</option><option value="/mapserver/browser/tags/rel-4-8-0-rc1?rev=5084">tags/rel-4-8-0-rc1</option><option value="/mapserver/browser/tags/rel-4-8-0-rc2?rev=5098">tags/rel-4-8-0-rc2</option><option value="/mapserver/browser/tags/rel-4-8-0-rc3?rev=5135">tags/rel-4-8-0-rc3</option><option value="/mapserver/browser/tags/rel-4-8-1?rev=5168">tags/rel-4-8-1</option><option value="/mapserver/browser/tags/rel-4-8-2?rev=5339">tags/rel-4-8-2</option><option value="/mapserver/browser/tags/rel-4-8-3?rev=5365">tags/rel-4-8-3</option><option value="/mapserver/browser/tags/rel-4-8-4?rev=5563">tags/rel-4-8-4</option><option value="/mapserver/browser/tags/rel-4-10-0?rev=5789">tags/rel-4-10-0</option><option value="/mapserver/browser/tags/rel-4-10-0-beta1?rev=5611">tags/rel-4-10-0-beta1</option><option value="/mapserver/browser/tags/rel-4-10-0-beta2?rev=5710">tags/rel-4-10-0-beta2</option><option value="/mapserver/browser/tags/rel-4-10-0-beta3?rev=5751">tags/rel-4-10-0-beta3</option><option value="/mapserver/browser/tags/rel-4-10-0-rc1?rev=5781">tags/rel-4-10-0-rc1</option><option value="/mapserver/browser/tags/rel-4-10-1?rev=5914">tags/rel-4-10-1</option><option value="/mapserver/browser/tags/rel-4-10-2?rev=6105">tags/rel-4-10-2</option><option value="/mapserver/browser/tags/rel-4-10-3?rev=6684">tags/rel-4-10-3</option><option value="/mapserver/browser/tags/rel-4-10-4?rev=8831">tags/rel-4-10-4</option><option value="/mapserver/browser/tags/rel-4-10-5?rev=9220">tags/rel-4-10-5</option><option value="/mapserver/browser/tags/rel-4-10-6?rev=10336">tags/rel-4-10-6</option><option value="/mapserver/browser/tags/rel-4-10-7?rev=11920">tags/rel-4-10-7</option><option value="/mapserver/browser/tags/rel-5-0-0?rev=6888">tags/rel-5-0-0</option><option value="/mapserver/browser/tags/rel-5-0-0-beta1?rev=6392">tags/rel-5-0-0-beta1</option><option value="/mapserver/browser/tags/rel-5-0-0-beta2?rev=6439">tags/rel-5-0-0-beta2</option><option value="/mapserver/browser/tags/rel-5-0-0-beta3?rev=6514">tags/rel-5-0-0-beta3</option><option value="/mapserver/browser/tags/rel-5-0-0-beta4?rev=6595">tags/rel-5-0-0-beta4</option><option value="/mapserver/browser/tags/rel-5-0-0-beta5?rev=6690">tags/rel-5-0-0-beta5</option><option value="/mapserver/browser/tags/rel-5-0-0-beta6?rev=6738">tags/rel-5-0-0-beta6</option><option value="/mapserver/browser/tags/rel-5-0-0-rc1?rev=6829">tags/rel-5-0-0-rc1</option><option value="/mapserver/browser/tags/rel-5-0-0-rc2?rev=6880">tags/rel-5-0-0-rc2</option><option value="/mapserver/browser/tags/rel-5-0-1?rev=7305">tags/rel-5-0-1</option><option value="/mapserver/browser/tags/rel-5-0-2?rev=7317">tags/rel-5-0-2</option><option value="/mapserver/browser/tags/rel-5-0-3?rev=7649">tags/rel-5-0-3</option><option value="/mapserver/browser/tags/rel-5-2-0?rev=7817">tags/rel-5-2-0</option><option value="/mapserver/browser/tags/rel-5-2-0-beta1?rev=7668">tags/rel-5-2-0-beta1</option><option value="/mapserver/browser/tags/rel-5-2-0-beta2?rev=7704">tags/rel-5-2-0-beta2</option><option value="/mapserver/browser/tags/rel-5-2-0-beta3?rev=7755">tags/rel-5-2-0-beta3</option><option value="/mapserver/browser/tags/rel-5-2-0-beta4?rev=7778">tags/rel-5-2-0-beta4</option><option value="/mapserver/browser/tags/rel-5-2-0-rc1?rev=7809">tags/rel-5-2-0-rc1</option><option value="/mapserver/browser/tags/rel-5-2-1?rev=8157">tags/rel-5-2-1</option><option value="/mapserver/browser/tags/rel-5-2-2?rev=8835">tags/rel-5-2-2</option><option value="/mapserver/browser/tags/rel-5-2-3?rev=9215">tags/rel-5-2-3</option><option value="/mapserver/browser/tags/rel-5-4-0?rev=8944">tags/rel-5-4-0</option><option value="/mapserver/browser/tags/rel-5-4-0-beta1?rev=8590">tags/rel-5-4-0-beta1</option><option value="/mapserver/browser/tags/rel-5-4-0-beta2?rev=8618">tags/rel-5-4-0-beta2</option><option value="/mapserver/browser/tags/rel-5-4-0-beta3?rev=8639">tags/rel-5-4-0-beta3</option><option value="/mapserver/browser/tags/rel-5-4-0-beta4?rev=8864">tags/rel-5-4-0-beta4</option><option value="/mapserver/browser/tags/rel-5-4-0-rc1?rev=8890">tags/rel-5-4-0-rc1</option><option value="/mapserver/browser/tags/rel-5-4-0-rc2?rev=8913">tags/rel-5-4-0-rc2</option><option value="/mapserver/browser/tags/rel-5-4-1?rev=9068">tags/rel-5-4-1</option><option value="/mapserver/browser/tags/rel-5-4-2?rev=9208">tags/rel-5-4-2</option><option value="/mapserver/browser/tags/rel-5-6-0?rev=9630">tags/rel-5-6-0</option><option value="/mapserver/browser/tags/rel-5-6-0-beta1?rev=9339">tags/rel-5-6-0-beta1</option><option value="/mapserver/browser/tags/rel-5-6-0-beta2?rev=9369">tags/rel-5-6-0-beta2</option><option value="/mapserver/browser/tags/rel-5-6-0-beta3?rev=9428">tags/rel-5-6-0-beta3</option><option value="/mapserver/browser/tags/rel-5-6-0-beta4?rev=9485">tags/rel-5-6-0-beta4</option><option value="/mapserver/browser/tags/rel-5-6-0-beta5?rev=9523">tags/rel-5-6-0-beta5</option><option value="/mapserver/browser/tags/rel-5-6-0-rc1?rev=9570">tags/rel-5-6-0-rc1</option><option value="/mapserver/browser/tags/rel-5-6-1?rev=9902">tags/rel-5-6-1</option><option value="/mapserver/browser/tags/rel-5-6-2?rev=9964">tags/rel-5-6-2</option><option value="/mapserver/browser/tags/rel-5-6-3?rev=9995">tags/rel-5-6-3</option><option value="/mapserver/browser/tags/rel-5-6-4?rev=10322">tags/rel-5-6-4</option><option value="/mapserver/browser/tags/rel-5-6-5?rev=10357">tags/rel-5-6-5</option><option value="/mapserver/browser/tags/rel-5-6-6?rev=10877">tags/rel-5-6-6</option><option value="/mapserver/browser/tags/rel-5-6-7?rev=11918">tags/rel-5-6-7</option><option value="/mapserver/browser/tags/rel-5-6-8?rev=13097">tags/rel-5-6-8</option><option value="/mapserver/browser/tags/rel-6-0-0?rev=11683">tags/rel-6-0-0</option><option value="/mapserver/browser/tags/rel-6-0-0-beta1?rev=11136">tags/rel-6-0-0-beta1</option><option value="/mapserver/browser/tags/rel-6-0-0-beta2?rev=11268">tags/rel-6-0-0-beta2</option><option value="/mapserver/browser/tags/rel-6-0-0-beta3?rev=11320">tags/rel-6-0-0-beta3</option><option value="/mapserver/browser/tags/rel-6-0-0-beta4?rev=11410">tags/rel-6-0-0-beta4</option><option value="/mapserver/browser/tags/rel-6-0-0-beta5?rev=11488">tags/rel-6-0-0-beta5</option><option value="/mapserver/browser/tags/rel-6-0-0-beta6?rev=11571">tags/rel-6-0-0-beta6</option><option value="/mapserver/browser/tags/rel-6-0-0-beta7?rev=11610">tags/rel-6-0-0-beta7</option><option value="/mapserver/browser/tags/rel-6-0-0-rc1?rev=11625">tags/rel-6-0-0-rc1</option><option value="/mapserver/browser/tags/rel-6-0-0-rc2?rev=11659">tags/rel-6-0-0-rc2</option><option value="/mapserver/browser/tags/rel-6-0-1?rev=11912">tags/rel-6-0-1</option><option value="/mapserver/browser/tags/rel-6-0-2?rev=13094">tags/rel-6-0-2</option>
+              </optgroup>
+            </select>
+            <input type="submit" value="Go!" title="Jump to the chosen preselected path" />
+          </div>
+        </form>
+      </div>
+      <table id="info" summary="Revision info">
+        <tr>
+          <th scope="col">
+            Revision <a href="/mapserver/changeset/13141">13141</a>, <span title="1746 bytes">1.7 KB</span>
+            (checked in by tbonfort, <a class="timeline" href="/mapserver/timeline?from=2012-02-13T05%3A07%3A23-0800&amp;precision=second" title="2012-02-13T05:07:23-0800 in Timeline">10 days</a> ago)
+          </th>
+        </tr>
+        <tr>
+          <td class="message searchable">
+              <p>
+fix missing element in msCopyLabel<br />
+</p>
+          </td>
+        </tr>
+      </table>
+      <div id="preview" class="searchable">
+    <table class="code"><thead><tr><th class="lineno" title="Line numbers">Line</th><th class="content"> </th></tr></thead><tbody><tr><th id="L1"><a href="#L1">1</a></th><td><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></td></tr><tr><th id="L2"><a href="#L2">2</a></th><td></td></tr><tr><th id="L3"><a href="#L3">3</a></th><td><span class="c">&lt;!-- see the accompanying mapcache.xml.sample for a fully commented configuration file --&gt;</span></td></tr><tr><th id="L4"><a href="#L4">4</a></th><td></td></tr><tr><th id="L5"><a href="#L5">5</a></th><td><span class="nt">&lt;mapcache&gt;</span></td></tr><tr><th id="L6"><a href="#L6">6</a></th><td>   <span class="nt">&lt;cache</span> <span class="na">name=</span><span class="s">"disk"</span> <span class="na">type=</span><span class="s">"disk"</span><span class="nt">&gt;</span></td></tr><tr><th id="L7"><a href="#L7">7</a></th><td>      <span class="nt">&lt;base&gt;</span>/tmp<span class="nt">&lt;/base&gt;</span></td></tr><tr><th id="L8"><a href="#L8">8</a></th><td>      <span class="nt">&lt;symlink_blank/&gt;</span></td></tr><tr><th id="L9"><a href="#L9">9</a></th><td>   <span class="nt">&lt;/cache&gt;</span></td></tr><tr><th id="L10"><a href="#L10">10</a></th><td></td></tr><tr><th id="L11"><a href="#L11">11</a></th><td>   <span class="nt">&lt;source</span> <span class="na">name=</span><span class="s">"vmap0"</span> <span class="na">type=</span><span class="s">"wms"</span><span class="nt">&gt;</span></td></tr><tr><th id="L12"><a href="#L12">12</a></th><td>      <span class="nt">&lt;getmap&gt;</span></td></tr><tr><th id="L13"><a href="#L13">13</a></th><td>         <span class="nt">&lt;params&gt;</span></td></tr><tr><th id="L14"><a href="#L14">14</a></th><td>            <span class="nt">&lt;FORMAT&gt;</span>image/png<span class="nt">&lt;/FORMAT&gt;</span></td></tr><tr><th id="L15"><a href="#L15">15</a></th><td>            <span class="nt">&lt;LAYERS&gt;</span>default<span class="nt">&lt;/LAYERS&gt;</span></td></tr><tr><th id="L16"><a href="#L16">16</a></th><td>         <span class="nt">&lt;/params&gt;</span></td></tr><tr><th id="L17"><a href="#L17">17</a></th><td>      <span class="nt">&lt;/getmap&gt;</span></td></tr><tr><th id="L18"><a href="#L18">18</a></th><td>      </td></tr><tr><th id="L19"><a href="#L19">19</a></th><td>      <span class="nt">&lt;http&gt;</span></td></tr><tr><th id="L20"><a href="#L20">20</a></th><td>         <span class="nt">&lt;url&gt;</span>http://localhost/cgi-bin/mapserv?map=/gro1/mapserver-utils/osm-google.map<span class="nt">&lt;/url&gt;</span></td></tr><tr><th id="L21"><a href="#L21">21</a></th><td>      <span class="nt">&lt;/http&gt;</span></td></tr><tr><th id="L22"><a href="#L22">22</a></th><td>   <span class="nt">&lt;/source&gt;</span></td></tr><tr><th id="L23"><a href="#L23">23</a></th><td>   <span class="nt">&lt;source</span> <span class="na">name=</span><span class="s">"ms"</span> <span class="na">type=</span><span class="s">"mapserver"</span><span class="nt">&gt;</span></td></tr><tr><th id="L24"><a href="#L24">24</a></th><td>      <span class="nt">&lt;mapfile&gt;</span>/gro1/mapserver-utils/osm-google.map<span class="nt">&lt;/mapfile&gt;</span></td></tr><tr><th id="L25"><a href="#L25">25</a></th><td>   <span class="nt">&lt;/source&gt;</span></td></tr><tr><th id="L26"><a href="#L26">26</a></th><td>   </td></tr><tr><th id="L27"><a href="#L27">27</a></th><td>   <span class="nt">&lt;tileset</span> <span class="na">name=</span><span class="s">"test"</span><span class="nt">&gt;</span></td></tr><tr><th id="L28"><a href="#L28">28</a></th><td>      <span class="nt">&lt;source&gt;</span>vmap0<span class="nt">&lt;/source&gt;</span></td></tr><tr><th id="L29"><a href="#L29">29</a></th><td>      <span class="nt">&lt;cache&gt;</span>disk<span class="nt">&lt;/cache&gt;</span></td></tr><tr><th id="L30"><a href="#L30">30</a></th><td>      <span class="nt">&lt;grid&gt;</span>WGS84<span class="nt">&lt;/grid&gt;</span></td></tr><tr><th id="L31"><a href="#L31">31</a></th><td>      <span class="nt">&lt;grid&gt;</span>g<span class="nt">&lt;/grid&gt;</span></td></tr><tr><th id="L32"><a href="#L32">32</a></th><td>      <span class="nt">&lt;format&gt;</span>PNG<span class="nt">&lt;/format&gt;</span></td></tr><tr><th id="L33"><a href="#L33">33</a></th><td>      <span class="nt">&lt;metatile&gt;</span>5 5<span class="nt">&lt;/metatile&gt;</span></td></tr><tr><th id="L34"><a href="#L34">34</a></th><td>      <span class="nt">&lt;metabuffer&gt;</span>10<span class="nt">&lt;/metabuffer&gt;</span></td></tr><tr><th id="L35"><a href="#L35">35</a></th><td>      <span class="nt">&lt;expires&gt;</span>3600<span class="nt">&lt;/expires&gt;</span></td></tr><tr><th id="L36"><a href="#L36">36</a></th><td>   <span class="nt">&lt;/tileset&gt;</span></td></tr><tr><th id="L37"><a href="#L37">37</a></th><td>   <span class="nt">&lt;tileset</span> <span class="na">name=</span><span class="s">"ms"</span><span class="nt">&gt;</span></td></tr><tr><th id="L38"><a href="#L38">38</a></th><td>      <span class="nt">&lt;source&gt;</span>ms<span class="nt">&lt;/source&gt;</span></td></tr><tr><th id="L39"><a href="#L39">39</a></th><td>      <span class="nt">&lt;cache&gt;</span>disk<span class="nt">&lt;/cache&gt;</span></td></tr><tr><th id="L40"><a href="#L40">40</a></th><td>      <span class="nt">&lt;grid&gt;</span>WGS84<span class="nt">&lt;/grid&gt;</span></td></tr><tr><th id="L41"><a href="#L41">41</a></th><td>      <span class="nt">&lt;grid&gt;</span>g<span class="nt">&lt;/grid&gt;</span></td></tr><tr><th id="L42"><a href="#L42">42</a></th><td>      <span class="nt">&lt;format&gt;</span>PNG<span class="nt">&lt;/format&gt;</span></td></tr><tr><th id="L43"><a href="#L43">43</a></th><td>      <span class="nt">&lt;metatile&gt;</span>5 5<span class="nt">&lt;/metatile&gt;</span></td></tr><tr><th id="L44"><a href="#L44">44</a></th><td>      <span class="nt">&lt;metabuffer&gt;</span>10<span class="nt">&lt;/metabuffer&gt;</span></td></tr><tr><th id="L45"><a href="#L45">45</a></th><td>      <span class="nt">&lt;expires&gt;</span>3600<span class="nt">&lt;/expires&gt;</span></td></tr><tr><th id="L46"><a href="#L46">46</a></th><td>   <span class="nt">&lt;/tileset&gt;</span></td></tr><tr><th id="L47"><a href="#L47">47</a></th><td></td></tr><tr><th id="L48"><a href="#L48">48</a></th><td></td></tr><tr><th id="L49"><a href="#L49">49</a></th><td>   <span class="nt">&lt;default_format&gt;</span>JPEG<span class="nt">&lt;/default_format&gt;</span></td></tr><tr><th id="L50"><a href="#L50">50</a></th><td></td></tr><tr><th id="L51"><a href="#L51">51</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"wms"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">&gt;</span></td></tr><tr><th id="L52"><a href="#L52">52</a></th><td>      <span class="nt">&lt;full_wms&gt;</span>assemble<span class="nt">&lt;/full_wms&gt;</span></td></tr><tr><th id="L53"><a href="#L53">53</a></th><td>      <span class="nt">&lt;resample_mode&gt;</span>bilinear<span class="nt">&lt;/resample_mode&gt;</span></td></tr><tr><th id="L54"><a href="#L54">54</a></th><td>      <span class="nt">&lt;format&gt;</span>JPEG<span class="nt">&lt;/format&gt;</span></td></tr><tr><th id="L55"><a href="#L55">55</a></th><td>      <span class="nt">&lt;maxsize&gt;</span>4096<span class="nt">&lt;/maxsize&gt;</span></td></tr><tr><th id="L56"><a href="#L56">56</a></th><td>   <span class="nt">&lt;/service&gt;</span></td></tr><tr><th id="L57"><a href="#L57">57</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"wmts"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L58"><a href="#L58">58</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"tms"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L59"><a href="#L59">59</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"kml"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L60"><a href="#L60">60</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"gmaps"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L61"><a href="#L61">61</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"ve"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L62"><a href="#L62">62</a></th><td>   <span class="nt">&lt;service</span> <span class="na">type=</span><span class="s">"demo"</span> <span class="na">enabled=</span><span class="s">"true"</span><span class="nt">/&gt;</span></td></tr><tr><th id="L63"><a href="#L63">63</a></th><td></td></tr><tr><th id="L64"><a href="#L64">64</a></th><td>   <span class="nt">&lt;errors&gt;</span>report<span class="nt">&lt;/errors&gt;</span></td></tr><tr><th id="L65"><a href="#L65">65</a></th><td>   <span class="nt">&lt;lock_dir&gt;</span>/tmp<span class="nt">&lt;/lock_dir&gt;</span></td></tr><tr><th id="L66"><a href="#L66">66</a></th><td></td></tr><tr><th id="L67"><a href="#L67">67</a></th><td><span class="nt">&lt;/mapcache&gt;</span></td></tr></tbody></table>
+      </div>
+      <div id="help">
+        <strong>Note:</strong> See <a href="/mapserver/wiki/TracBrowser">TracBrowser</a>
+        for help on using the browser.
+      </div>
+      <div id="anydiff">
+        <form action="/mapserver/diff" method="get">
+          <div class="buttons">
+            <input type="hidden" name="new_path" value="/trunk/mapserver/mapcache/mapcache.xml" />
+            <input type="hidden" name="old_path" value="/trunk/mapserver/mapcache/mapcache.xml" />
+            <input type="hidden" name="new_rev" />
+            <input type="hidden" name="old_rev" />
+            <input type="submit" value="View changes..." title="Select paths and revs for Diff" />
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="altlinks">
+      <h3>Download in other formats:</h3>
+      <ul>
+        <li class="first">
+          <a rel="nofollow" href="/mapserver/browser/trunk/mapserver/mapcache/mapcache.xml?format=txt">Plain Text</a>
+        </li><li class="last">
+          <a rel="nofollow" href="/mapserver/export/13168/trunk/mapserver/mapcache/mapcache.xml">Original Format</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/mapserver/chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">
+        Powered by <a href="/mapserver/about"><strong>Trac 0.11.7</strong></a><br />
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.
+      </p>
+      <p class="right">Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a></p>
+    </div>
+  </body>
+</html>
