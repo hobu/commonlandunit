@@ -57,13 +57,20 @@ function init(){
         }
     );
 
+    var clu2 = new OpenLayers.Layer.WMS( "Common Land Unit Polygons",
+        "http://commonlandunit.com/cgi-bin/mapserver?",{layers: 'clu'},
+        { 
+        }
+    );
+
+
     var hybrid = new OpenLayers.Layer.Bing({
         key: apiKey,
         type: "AerialWithLabels",
         name: "Bing Aerial With Labels"
     });
 
-    map.addLayers([hybrid, clu]);
+    map.addLayers([hybrid, clu, clu2]);
 
   var geolocate = new OpenLayers.Control.Geolocate({
       bind: false,
@@ -95,22 +102,11 @@ function init(){
   }
 
   info = new OpenLayers.Control.WMSGetFeatureInfo({
-      url: 'http://commonlandunit.com/mapcache', 
-      title: 'Identify features by clicking',
-      queryVisible: true,
-      eventListeners: {
-          getfeatureinfo: function(event) {
-              map.addPopup(new OpenLayers.Popup.FramedCloud(
-                  "clu", 
-                  map.getLonLatFromPixel(event.xy),
-                  null,
-                  event.text,
-                  null,
-                  true
-              ));
-          }
-      }
-  });
+                url: 'http://commonlandunit.com/cgi-bin/mapserver?', 
+                title: 'Identify features by clicking',
+                layers: [clu],
+                queryVisible: false
+            });
   map.addControl(info);
   info.activate();
 
