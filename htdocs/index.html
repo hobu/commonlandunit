@@ -75,16 +75,6 @@ function init(){
   });
   map.addControl(geolocate);
 
-  var touch = new OpenLayers.Control.TouchNavigation({
-            dragPanOptions: {
-                interval: 0, // non-zero kills performance on some mobile phones
-                enableKinetic: true
-            }
-        });
-  map.addControl(touch);
-  var zoom = new OpenLayers.Control.ZoomPanel();
-  map.addControl(zoom);
-
   geolocate.activate();
 
   geolocate.events.register("locationupdated",geolocate,function(e) {
