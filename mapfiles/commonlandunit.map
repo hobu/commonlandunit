@@ -84,7 +84,7 @@ WEB
         WMS_FEATURE_INFO_MIME_TYPE 'text/plain'
         WMS_ABSTRACT 'USDA Command Land Unit'
         OWS_ENABLE_REQUEST "*"
-#        "labelcache_map_edge_buffer" "-20"
+       "labelcache_map_edge_buffer" "-10"
     END 
 
 END

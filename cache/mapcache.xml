@@ -4,9 +4,8 @@
 
 <mapcache>
   <metadata>
-    
      <url>http://commonlandunit.com/mapcache/</url>
-   </metadata>
+  </metadata>
    <cache name="disk" type="disk">
      <base>/Data/www/commonlandunit.com/cache</base>
       <symlink_blank/>
@@ -14,14 +13,13 @@
 
    <source name="ms" type="mapserver">
      <mapfile>/Data/www/commonlandunit.com/mapserver/commonlandunit.map</mapfile>
-     <url>http://commonlandunit.com/mapcache/</url>
    </source>
    
   <tileset name="clu">
       <source>ms</source>
       <cache>disk</cache>
       <grid>WGS84</grid>
-      <grid>g</grid>
+      <grid>GoogleMapsCompatible</grid>
       <format>PNG</format>
       <metatile>5 5</metatile>
       <metabuffer>10</metabuffer>
