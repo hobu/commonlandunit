@@ -11,9 +11,38 @@
       <symlink_blank/>
    </cache>
 
-   <source name="ms" type="mapserver">
+   <!-- <source name="ms" type="mapserver">
      <mapfile>/Data/www/commonlandunit.com/mapserver/commonlandunit.map</mapfile>
+   </source> -->
+   <source name="ms" type="wms">
+      <http>
+         <url>http://commonlandunit.com/cgi-bin/mapserver?</url>
+      </http>
+      <getmap>
+         <params>
+            <FORMAT>image/png</FORMAT>
+            <LAYERS>clu</LAYERS>
+            <TRANSPARENT>true</TRANSPARENT>
+         </params>
+      </getmap>
+
+      <!-- getfeatureinfo
+           additional parameters to use if you want to enable proxying GetFeatureInfo requests
+           to this source
+      -->
+      <getfeatureinfo>
+         <!-- info_formats: comma separated list of wms info_formats supported by the source WMS.
+              you can get this list by studying the source WMS capabilities document.
+         -->
+         <info_formats>text/plain,application/vnd.ogc.gml</info_formats>
+
+         <!-- KVP params to pass with the request. QUERY_LAYERS is mandatory -->
+         <params>
+            <QUERY_LAYERS>clu</QUERY_LAYERS>
+         </params>
+      </getfeatureinfo>
    </source>
+
    
   <tileset name="clu">
       <source>ms</source>
