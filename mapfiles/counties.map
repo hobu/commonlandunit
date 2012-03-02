@@ -13,6 +13,7 @@ LAYER
 
     TYPE POLYGON
     STATUS ON
+    DEBUG ON
 
     CLASSGROUP "Black"
     LABELITEM "name"

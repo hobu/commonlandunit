@@ -5,7 +5,7 @@ STATUS ON
 
 #MAXSIZE 2048
 PROJECTION
-	"init=EPSG:3857"
+    "init=EPSG:3857"
 END
  
 
@@ -23,7 +23,7 @@ FONTSET "/Data/www/commonlandunit.com/mapserver/symbols/fonts.txt"
 CONFIG "PROJ_LIB" "/usr/local/share/proj"
 #CONFIG "MS_ERRORFILE" "stderr"
 
-DEBUG OFF
+DEBUG ON
 
 DEFRESOLUTION 72
 RESOLUTION 72
@@ -75,13 +75,13 @@ WEB
         WMS_TITLE 'commonlandunit.com'
         WMS_FEATURE_INFO_MIME_TYPE 'text/plain'
         WMS_ABSTRACT 'USDA Command Land Unit'
-		OWS_ENABLE_REQUEST "*"
+        OWS_ENABLE_REQUEST "*"
 #        "labelcache_map_edge_buffer" "-20"
     END 
 
 END
 
-INCLUDE "naip.map"
+#INCLUDE "naip.map"
 INCLUDE "states.map"
 INCLUDE "counties.map"
 INCLUDE "clu.map"

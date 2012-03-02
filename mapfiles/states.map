@@ -86,6 +86,6 @@ LAYER
         END
         END
 
-	TEMPLATE "dummy.html"
+    TEMPLATE "dummy.html"
 
 END
