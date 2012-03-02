@@ -43,11 +43,11 @@ LAYER
             OUTLINECOLOR 230 248 145 
             OUTLINEWIDTH 3
             BUFFER 10
-            SIZE 20
+            SIZE 13
             POSITION AUTO
             TYPE TRUETYPE
             ANTIALIAS TRUE
-            PARTIALS FALSE
+            FORCE TRUE
             MINDISTANCE 150
         END
         STYLE
