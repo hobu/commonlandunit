@@ -94,6 +94,26 @@ function init(){
     map.zoomToExtent(cluExtent, true);
   }
 
+  info = new OpenLayers.Control.WMSGetFeatureInfo({
+      url: 'http://commonlandunit.com/mapcache', 
+      title: 'Identify features by clicking',
+      queryVisible: true,
+      eventListeners: {
+          getfeatureinfo: function(event) {
+              map.addPopup(new OpenLayers.Popup.FramedCloud(
+                  "clu", 
+                  map.getLonLatFromPixel(event.xy),
+                  null,
+                  event.text,
+                  null,
+                  true
+              ));
+          }
+      }
+  });
+  map.addControl(info);
+  info.activate();
+
 }
     </script>
   </head>
