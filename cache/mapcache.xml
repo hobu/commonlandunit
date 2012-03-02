@@ -4,23 +4,11 @@
 
 <mapcache>
    <cache name="disk" type="disk">
-      <base>/tmp</base>
+	   <base>/Data/www/commonlandunit.com/cache</base>
       <symlink_blank/>
    </cache>
 
-   <source name="vmap0" type="wms">
-      <getmap>
-         <params>
-            <FORMAT>image/png</FORMAT>
-            <LAYERS>default</LAYERS>
-         </params>
-      </getmap>
-      
-      <http>
-		  <url>http://commonlandunit.com:8000/cgi-bin/mapserv?map=/Data/www/commonlandunit.com/cache/mapcache.xml</url>
-      </http>
-   </source>
-  <source name="ms" type="mapserver">
+   <source name="ms" type="mapserver">
 	   <mapfile>/Data/www/commonlandunit.com/mapserver/commonlandunit.map</mapfile>
    </source>
    
@@ -34,7 +22,7 @@
       <metabuffer>10</metabuffer>
       <expires>3600</expires>
    </tileset>
-   <tileset name="ms">
+   <tileset name="clu">
       <source>ms</source>
       <cache>disk</cache>
       <grid>WGS84</grid>

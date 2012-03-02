@@ -5,7 +5,7 @@ STATUS ON
 
 #MAXSIZE 2048
 PROJECTION
-	"init=epsg:3857"
+	"init=EPSG:3857"
 END
  
 
