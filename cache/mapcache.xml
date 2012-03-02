@@ -21,7 +21,7 @@
       <getmap>
          <params>
             <FORMAT>image/png</FORMAT>
-            <LAYERS>clu</LAYERS>
+            <LAYERS>states,clu</LAYERS>
             <TRANSPARENT>true</TRANSPARENT>
          </params>
       </getmap>

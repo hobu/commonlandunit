@@ -7,8 +7,7 @@ LAYER
 
     INCLUDE "connection.map"
     
-#    DATA "geometry from (select geometry as geometry, id as oid from clu where clu.pohaku is not NULL) as foo USING UNIQUE oid USING SRID=900913"
-    DATA "geometry from (select geometry as geometry, id as oid from clu ) as foo USING UNIQUE oid USING SRID=3857"
+    DATA "geometry from (select geometry as geometry, id as oid from clu, to_char(hpd_acres(geometry),'999.99') ||' ac.' as acres) as foo USING UNIQUE oid USING SRID=3857"
    # FILTER "clucls = 2 or clucls = 10 and pohaku is not NULL"
 
     STATUS ON
@@ -23,7 +22,8 @@ LAYER
     
     DEBUG OFF
     MAXSCALEDENOM 100000
-    CLASSGROUP "Yellow"	
+    CLASSGROUP "Yellow"
+    LABELITEM "acres"
     CLASS
         NAME "BlackOL"
         GROUP "Black"
@@ -37,12 +37,25 @@ LAYER
     CLASS
         NAME "YellowOL"
         GROUP "Yellow"
-    STYLE
-        OUTLINECOLOR 255 255 178
-        ANTIALIAS TRUE
-        SYMBOL 0
-        WIDTH 2
-    END
+        LABEL
+            FONT "consolas-bold"
+            COLOR 0 0 0
+            OUTLINECOLOR 230 248 145 
+            OUTLINEWIDTH 3
+            BUFFER 10
+            SIZE 20
+            POSITION AUTO
+            TYPE TRUETYPE
+            ANTIALIAS TRUE
+            PARTIALS FALSE
+            MINDISTANCE 150
+        END
+        STYLE
+            OUTLINECOLOR 255 255 178
+            ANTIALIAS TRUE
+            SYMBOL 0
+            WIDTH 2
+        END
     END
 
     CLASS
