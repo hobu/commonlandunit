@@ -79,63 +79,44 @@ function get_ve_url (bounds) {
 var map;
 function init(){
     map = new OpenLayers.Map( 'map', {
-        displayProjection: new OpenLayers.Projection("EPSG:4326")
+        displayProjection: new OpenLayers.Projection("EPSG:900913")
     } );
-    var test_WGS84_ve_layer = new OpenLayers.Layer.TMS( "test-WGS84-VE",
-        "http://commonlandunit.com:8000/mapcache/ve",
-        { layername: 'test@WGS84',
-          getURL: get_ve_url,
-          gutter:0,buffer:0,isBaseLayer:true,transitionEffect:'resize',
-          resolutions:[0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516],
-          units:"dd",
-          maxExtent: new OpenLayers.Bounds(-180.000000,-90.000000,180.000000,90.000000),
-          projection: new OpenLayers.Projection("EPSG:4326".toUpperCase()),
-          sphericalMercator: false
-        }
-    );
-    map.addLayer(test_WGS84_ve_layer)
 
-    var test_g_ve_layer = new OpenLayers.Layer.TMS( "test-g-VE",
-        "http://commonlandunit.com:8000/mapcache/ve",
-        { layername: 'test@g',
-          getURL: get_ve_url,
-          gutter:0,buffer:0,isBaseLayer:true,transitionEffect:'resize',
-          resolutions:[156543.03392804099712520838,78271.51696402048401068896,39135.75848201022745342925,19567.87924100512100267224,9783.93962050256050133612,4891.96981025128025066806,2445.98490512564012533403,1222.99245256282006266702,611.49622628141003133351,305.74811314070478829308,152.87405657035250783338,76.43702828517623970583,38.21851414258812695834,19.10925707129405992646,9.55462853564703173959,4.77731426782351586979,2.38865713391175793490,1.19432856695587897633,0.59716428347793950593],
-          units:"m",
-          maxExtent: new OpenLayers.Bounds(-20037508.342789,-20037508.342789,20037508.342789,20037508.342789),
-          projection: new OpenLayers.Projection("EPSG:900913".toUpperCase()),
-          sphericalMercator: true
-        }
-    );
-    map.addLayer(test_g_ve_layer)
+    var apiKey = "AgI6w1ng43KaaIw8H_AkBOT_b3h5N-zAF_Rpwsv3OYLHigUdtPyP_6jEDQyDTcMg";
 
-    var clu_WGS84_ve_layer = new OpenLayers.Layer.TMS( "clu-WGS84-VE",
-        "http://commonlandunit.com:8000/mapcache/ve",
-        { layername: 'clu@WGS84',
-          getURL: get_ve_url,
-          gutter:0,buffer:0,isBaseLayer:true,transitionEffect:'resize',
-          resolutions:[0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516],
-          units:"dd",
-          maxExtent: new OpenLayers.Bounds(-180.000000,-90.000000,180.000000,90.000000),
-          projection: new OpenLayers.Projection("EPSG:4326".toUpperCase()),
-          sphericalMercator: false
-        }
-    );
-    map.addLayer(clu_WGS84_ve_layer)
-
-    var clu_g_ve_layer = new OpenLayers.Layer.TMS( "clu-g-VE",
-        "http://commonlandunit.com:8000/mapcache/ve",
+    var clu = new OpenLayers.Layer.TMS( "Common Land Units",
+        "http://commonlandunit.com/mapcache/ve",
         { layername: 'clu@g',
           getURL: get_ve_url,
+          isBaseLayer:false,
           gutter:0,buffer:0,isBaseLayer:true,transitionEffect:'resize',
           resolutions:[156543.03392804099712520838,78271.51696402048401068896,39135.75848201022745342925,19567.87924100512100267224,9783.93962050256050133612,4891.96981025128025066806,2445.98490512564012533403,1222.99245256282006266702,611.49622628141003133351,305.74811314070478829308,152.87405657035250783338,76.43702828517623970583,38.21851414258812695834,19.10925707129405992646,9.55462853564703173959,4.77731426782351586979,2.38865713391175793490,1.19432856695587897633,0.59716428347793950593],
           units:"m",
-          maxExtent: new OpenLayers.Bounds(-20037508.342789,-20037508.342789,20037508.342789,20037508.342789),
+          maxExtent: new OpenLayers.Bounds(-11584239.1798478,4299198.20549289,-9438495.32840601,6338173.22538596),
+          // maxExtent: new OpenLayers.Bounds(-20037508.342789,-20037508.342789,20037508.342789,20037508.342789),
           projection: new OpenLayers.Projection("EPSG:900913".toUpperCase()),
           sphericalMercator: true
         }
     );
-    map.addLayer(clu_g_ve_layer)
+    clu.setIsBaseLayer(false);
+    var road = new OpenLayers.Layer.Bing({
+        name: "Road",
+        key: apiKey,
+        type: "Road"
+    });
+    var hybrid = new OpenLayers.Layer.Bing({
+        name: "Hybrid",
+        key: apiKey,
+        type: "AerialWithLabels"
+    });
+    var aerial = new OpenLayers.Layer.Bing({
+        name: "Aerial",
+        key: apiKey,
+        type: "Aerial"
+    });
+
+    map.addLayers([road, clu, hybrid, aerial]);
+
 
     if(!map.getCenter())
      map.zoomToMaxExtent();
