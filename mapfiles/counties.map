@@ -14,7 +14,9 @@ LAYER
     TYPE POLYGON
     STATUS ON
     DEBUG ON
-
+    
+    MAXSCALEDENOM 1000000
+    
     CLASSGROUP "Black"
     LABELITEM "name"
 
