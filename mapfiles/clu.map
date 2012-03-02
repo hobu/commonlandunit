@@ -2,12 +2,12 @@ LAYER
     NAME "clu"
 
     PROJECTION
-        "init=epsg:3857"
+        "init=epsg:900913"
     END
 
     INCLUDE "connection.map"
     
-    DATA "geometry from (select geometry as geometry, id as oid from clu, to_char(hpd_acres(geometry),'999.99') ||' ac.' as acres) as foo USING UNIQUE oid USING SRID=3857"
+    DATA "geometry from (select geometry as geometry, id as oid from clu, to_char(hpd_acres(geometry),'999.99') ||' ac.' as acres) as foo USING UNIQUE oid USING SRID=900913"
    # FILTER "clucls = 2 or clucls = 10 and pohaku is not NULL"
 
     STATUS ON

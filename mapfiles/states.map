@@ -4,12 +4,12 @@ LAYER
     NAME "states"
 
     PROJECTION
-        "init=epsg:3857"
+        "init=epsg:900913"
     END
 
     INCLUDE "connection.map"
 
-    DATA "geometry from (select geometry as geometry, id as oid, name as name from states) as foo USING UNIQUE oid USING SRID=3857"
+    DATA "geometry from (select geometry as geometry, id as oid, name as name from states) as foo USING UNIQUE oid USING SRID=900913"
 
     TYPE POLYGON
     STATUS ON

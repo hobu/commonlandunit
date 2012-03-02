@@ -47,7 +47,7 @@
   <tileset name="clu">
       <source>ms</source>
       <cache>disk</cache>
-      <grid>GoogleMapsCompatible</grid>
+      <grid>g</grid>
       <format>PNG</format>
       <metatile>5 5</metatile>
       <metabuffer>10</metabuffer>

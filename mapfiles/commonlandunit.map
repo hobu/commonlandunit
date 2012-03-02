@@ -5,7 +5,7 @@ STATUS ON
 
 #MAXSIZE 2048
 PROJECTION
-    "init=EPSG:3857"
+    "init=EPSG:900913"
 END
  
 
@@ -78,7 +78,7 @@ WEB
 
     METADATA
         WMS_ONLINERESOURCE 'http://commonlandunit.com/cgi-bin/mapserver'
-        WMS_SRS 'EPSG:3857'
+        WMS_SRS 'EPSG:900913'
         WMS_ACCESSCONSTRAINTS 'None'
         WMS_TITLE 'commonlandunit.com'
         WMS_FEATURE_INFO_MIME_TYPE 'text/plain'
