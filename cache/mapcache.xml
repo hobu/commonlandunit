@@ -18,7 +18,6 @@
   <tileset name="clu">
       <source>ms</source>
       <cache>disk</cache>
-      <grid>WGS84</grid>
       <grid>GoogleMapsCompatible</grid>
       <format>PNG</format>
       <metatile>5 5</metatile>
