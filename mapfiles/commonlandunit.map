@@ -31,6 +31,14 @@ RESOLUTION 72
 
 IMAGETYPE png
 
+OUTPUTFORMAT
+  NAME "png"
+  DRIVER AGG/PNG
+  MIMETYPE "image/png"
+  IMAGEMODE RGBA
+  EXTENSION "png"
+END
+
 LEGEND
     LABEL
         FONT "consolas-bold"
