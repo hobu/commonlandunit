@@ -4,14 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>USDA Common Land Units</title>
-    <style type="text/css">
-    #map {
-    width: 100%;
-    height: 100%;
-    border: 1px solid black;
-    }
-    </style>
-    <script src="./openlayers/OpenLayers.js"></script>
+    <link rel="stylesheet" href="./openlayers/theme/default/style.mobile.css" type="text/css" />
+    <link rel="stylesheet" href="./openlayers/theme/default/style.css" type="text/css">
+    <script type="text/javascript" src="./openlayers/OpenLayers-mobile.js"></script>
     <script type="text/javascript">
 
 var map;
@@ -21,16 +16,16 @@ function init(){
 
     map = new OpenLayers.Map( 'map', {
         displayProjection: new OpenLayers.Projection("EPSG:900913"),
-		theme: null,
-		controls: [
+    theme: null,
+    controls: [
 //            new OpenLayers.Control.Attribution(),
             new OpenLayers.Control.TouchNavigation({
                 dragPanOptions: {
                     enableKinetic: true
                 }
             }),
-            new OpenLayers.Control.ZoomPanel()
-		],
+            new OpenLayers.Control.Zoom()
+    ],
     } );
 
 
