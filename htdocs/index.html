@@ -21,6 +21,16 @@ function init(){
 
     map = new OpenLayers.Map( 'map', {
         displayProjection: new OpenLayers.Projection("EPSG:900913"),
+		theme: null,
+		controls: [
+//            new OpenLayers.Control.Attribution(),
+            new OpenLayers.Control.TouchNavigation({
+                dragPanOptions: {
+                    enableKinetic: true
+                }
+            }),
+            new OpenLayers.Control.ZoomPanel()
+		],
     } );
 
 
@@ -84,7 +94,9 @@ function init(){
       }
   });
   map.addControl(geolocate);
-
+  
+  var scale = new OpenLayers.Control.Scale();
+  map.addControl(scale);
   geolocate.activate();
 
   geolocate.events.register("locationupdated",geolocate,function(e) {

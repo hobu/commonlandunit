@@ -7,7 +7,7 @@ LAYER
 
     INCLUDE "connection.map"
     
-    DATA "geometry from (select geometry as geometry, id as oid, to_char(hpd_acres(geometry),'999.99') ||' ac.' as acres from clu)  as foo USING UNIQUE oid USING SRID=900913"
+    DATA "geometry from (select geometry as geometry, id as oid, hpd_acres(geometry) as area, to_char(hpd_acres(geometry),'999.99') ||' ac.' as acres from clu)  as foo USING UNIQUE oid USING SRID=900913"
    # FILTER "clucls = 2 or clucls = 10 and pohaku is not NULL"
 
     STATUS ON
@@ -22,34 +22,32 @@ LAYER
     
     DEBUG OFF
     MAXSCALEDENOM 100000
+	SYMBOLSCALEDENOM 8000
     CLASSGROUP "Yellow"
     LABELITEM "acres"
-    CLASS
-        NAME "BlackOL"
-        GROUP "Black"
-    STYLE
-        OUTLINECOLOR 0 0 0
-        ANTIALIAS TRUE
-        SYMBOL 0
-        WIDTH 2
-    END
-    END
-    CLASS
-        NAME "YellowOL"
+   CLASS
+        NAME "YellowLabels"
         GROUP "Yellow"
+		MAXSCALEDENOM 15000
+		MINSCALEDENOM 5000
+		EXPRESSION ([area] > 5.0)
         LABEL
             FONT "consolas-bold"
-            COLOR 0 0 0
-            OUTLINECOLOR 230 248 145 
-            OUTLINEWIDTH 3
-            BUFFER 10
-            SIZE 13
+            COLOR 230 248 145
+#            OUTLINECOLOR 230 248 145 
+#            OUTLINEWIDTH 3
+            BUFFER 5
+            SIZE 14
+			MINSIZE 2
+			MINFEATURESIZE AUTO
             POSITION AUTO
             TYPE TRUETYPE
             ANTIALIAS TRUE
+			PARTIALS FALSE
             FORCE TRUE
-            MINDISTANCE 150
-        END
+			ANGLE AUTO	
+            MINDISTANCE 160
+       END
         STYLE
             OUTLINECOLOR 255 255 178
             ANTIALIAS TRUE
@@ -57,28 +55,64 @@ LAYER
             WIDTH 2
         END
     END
+    CLASS
+        NAME "YellowLabelsSmall"
+        GROUP "Yellow"
+		MAXSCALEDENOM 5000
+        LABEL
+            FONT "consolas-bold"
+            COLOR 230 248 145
+#            OUTLINECOLOR 230 248 145 
+#            OUTLINEWIDTH 3
+            BUFFER 5
+            SIZE 14
+			MINSIZE 2
+			MINFEATURESIZE AUTO
+            POSITION CC
+            TYPE TRUETYPE
+            ANTIALIAS TRUE
+			PARTIALS TRUE
+            FORCE TRUE
+			ANGLE AUTO	
+            MINDISTANCE 160
+       END
+	   STYLE
+	   		COLOR 255 255 178
+			OPACITY 40
+	   END
+        STYLE
+            OUTLINECOLOR 255 255 178
+            ANTIALIAS TRUE
+            SYMBOL 0
+            WIDTH 2
+        END
+    END
+    CLASS
+        NAME "YellowNoLabels"
+        GROUP "Yellow"
+		MAXSCALEDENOM 15000
+         STYLE
+            OUTLINECOLOR 255 255 178
+            ANTIALIAS TRUE
+            SYMBOL 0
+            WIDTH 2
+        END
+    END
+   CLASS
+        NAME "YellowOL"
+        GROUP "Yellow"
+		MAXSCALEDENOM 100000
+		MINSCALEDENOM 15000
+        STYLE
+            OUTLINECOLOR 255 255 178
+            ANTIALIAS TRUE
+            SYMBOL 0
+            WIDTH 5
+        END
+    END
 
-    CLASS
-        NAME "GreyOL"
-        GROUP "Grey"
-    STYLE
-        OUTLINECOLOR 215 215 215
-        ANTIALIAS TRUE
-        SYMBOL 0
-        WIDTH 2
-    END
-    END
-    CLASS
-        NAME "BlueOL"
-        GROUP "Blue"
-    STYLE
-        OUTLINECOLOR 51 102 153
-        ANTIALIAS TRUE
-        SYMBOL 0
-        WIDTH 2
-    END
-    END
-#    TRANSPARENCY 30
+
+    TRANSPARENCY 70
 	TEMPLATE "dummy.html"
 
 END
