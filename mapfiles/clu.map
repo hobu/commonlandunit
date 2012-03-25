@@ -18,19 +18,19 @@ LAYER
         "ows_title" "clu"
         "ows_srs" "EPSG:900913"
 #        "ows_extent" "-10275449 5139555.5 -10222990 5205389"
-    END	 
+    END  
     
     DEBUG OFF
     MAXSCALEDENOM 100000
-	SYMBOLSCALEDENOM 8000
+    SYMBOLSCALEDENOM 8000
     CLASSGROUP "Yellow"
     LABELITEM "acres"
    CLASS
         NAME "YellowLabels"
         GROUP "Yellow"
-		MAXSCALEDENOM 15000
-		MINSCALEDENOM 5000
-		EXPRESSION ([area] > 5.0)
+        MAXSCALEDENOM 15000
+        MINSCALEDENOM 5000
+        EXPRESSION ([area] > 5.0)
         LABEL
             FONT "consolas-bold"
             COLOR 230 248 145
@@ -38,14 +38,14 @@ LAYER
 #            OUTLINEWIDTH 3
             BUFFER 5
             SIZE 14
-			MINSIZE 2
-			MINFEATURESIZE AUTO
+            MINSIZE 2
+            MINFEATURESIZE AUTO
             POSITION AUTO
             TYPE TRUETYPE
             ANTIALIAS TRUE
-			PARTIALS FALSE
+            PARTIALS FALSE
             FORCE TRUE
-			ANGLE AUTO	
+            ANGLE AUTO  
             MINDISTANCE 160
        END
         STYLE
@@ -58,28 +58,22 @@ LAYER
     CLASS
         NAME "YellowLabelsSmall"
         GROUP "Yellow"
-		MAXSCALEDENOM 5000
+        MAXSCALEDENOM 5000
         LABEL
             FONT "consolas-bold"
             COLOR 230 248 145
-#            OUTLINECOLOR 230 248 145 
-#            OUTLINEWIDTH 3
-            BUFFER 5
-            SIZE 14
-			MINSIZE 2
-			MINFEATURESIZE AUTO
+            SIZE 12
+            MINSIZE 5
+            MAXSIZE 18
+            MINFEATURESIZE 20
             POSITION CC
             TYPE TRUETYPE
             ANTIALIAS TRUE
-			PARTIALS TRUE
+            PARTIALS TRUE
             FORCE TRUE
-			ANGLE AUTO	
-            MINDISTANCE 160
+            ANGLE AUTO  
+            MINDISTANCE 70
        END
-	   STYLE
-	   		COLOR 255 255 178
-			OPACITY 40
-	   END
         STYLE
             OUTLINECOLOR 255 255 178
             ANTIALIAS TRUE
@@ -90,7 +84,7 @@ LAYER
     CLASS
         NAME "YellowNoLabels"
         GROUP "Yellow"
-		MAXSCALEDENOM 15000
+        MAXSCALEDENOM 15000
          STYLE
             OUTLINECOLOR 255 255 178
             ANTIALIAS TRUE
@@ -101,8 +95,8 @@ LAYER
    CLASS
         NAME "YellowOL"
         GROUP "Yellow"
-		MAXSCALEDENOM 100000
-		MINSCALEDENOM 15000
+        MAXSCALEDENOM 100000
+        MINSCALEDENOM 15000
         STYLE
             OUTLINECOLOR 255 255 178
             ANTIALIAS TRUE
@@ -113,6 +107,6 @@ LAYER
 
 
     TRANSPARENCY 70
-	TEMPLATE "dummy.html"
+    TEMPLATE "dummy.html"
 
 END
