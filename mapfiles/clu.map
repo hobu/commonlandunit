@@ -8,7 +8,6 @@ LAYER
     INCLUDE "connection.map"
     
     DATA "geometry from (select geometry as geometry, id as oid, hpd_acres(geometry) as area, to_char(hpd_acres(geometry),'999.99') ||' ac.' as acres from clu)  as foo USING UNIQUE oid USING SRID=900913"
-   # FILTER "clucls = 2 or clucls = 10 and pohaku is not NULL"
 
     STATUS ON
     TYPE POLYGON
@@ -34,8 +33,6 @@ LAYER
         LABEL
             FONT "consolas-bold"
             COLOR 230 248 145
-#            OUTLINECOLOR 230 248 145 
-#            OUTLINEWIDTH 3
             BUFFER 5
             SIZE 14
             MINSIZE 2
@@ -65,11 +62,11 @@ LAYER
             SIZE 12
             MINSIZE 5
             MAXSIZE 18
-            MINFEATURESIZE 20
+            MINFEATURESIZE 40
             POSITION CC
             TYPE TRUETYPE
             ANTIALIAS TRUE
-            PARTIALS TRUE
+            PARTIALS FALSE
             FORCE TRUE
             ANGLE AUTO  
             MINDISTANCE 70
